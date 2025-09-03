@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Блог - Гарант | Двери для дома и офиса</title>
+    <title>Блог - Страница 2 - Гарант | Двери для дома и офиса</title>
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
@@ -138,93 +138,101 @@
                                 </button>
                             </div>
                             
-                            <!-- Featured Post -->
-                            <div x-show="activeCategory === 'all' || activeCategory === 'news'" x-transition class="blog-card mb-12 bg-white rounded-lg overflow-hidden shadow-md">
-                                <div class="h-64 bg-gray-300 flex items-center justify-center relative">
-                                    <i class="fas fa-newspaper text-6xl text-gray-500"></i>
-                                    <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Новости</span>
-                                </div>
-                                <div class="p-6">
-                                    <div class="flex items-center text-gray-500 text-sm mb-3">
-                                        <span><i class="far fa-calendar-alt mr-1"></i> 15 ноября 2023</span>
-                                        <span class="mx-2">•</span>
-                                        <span><i class="far fa-clock mr-1"></i> 5 мин чтения</span>
-                                    </div>
-                                    <h2 class="text-2xl font-bold mb-3">Новая коллекция межкомнатных дверей 2024</h2>
-                                    <p class="text-gray-600 mb-4">Представляем новую коллекцию межкомнатных дверей, которая сочетает в себе современный дизайн, экологичные материалы и innovative технологии производства...</p>
-                                    <div class="flex justify-between items-center">
-                                        <a href="/blog/post-1" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
-                                        <div class="flex items-center">
-                                            <i class="far fa-eye text-gray-400 mr-2"></i>
-                                            <span class="text-gray-500 text-sm">1.2K</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <!-- Blog Posts Grid -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- Post 1 -->
-                                <div x-show="activeCategory === 'all' || activeCategory === 'tips'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div x-show="activeCategory === 'all' || activeCategory === 'news'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
                                     <div class="h-48 bg-gray-300 flex items-center justify-center relative">
-                                        <i class="fas fa-tools text-5xl text-gray-500"></i>
-                                        <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Советы</span>
+                                        <i class="fas fa-building text-5xl text-gray-500"></i>
+                                        <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Новости</span>
                                     </div>
                                     <div class="p-6">
                                         <div class="flex items-center text-gray-500 text-sm mb-3">
-                                            <span><i class="far fa-calendar-alt mr-1"></i> 10 ноября 2023</span>
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 25 октября 2023</span>
                                         </div>
-                                        <h3 class="text-xl font-semibold mb-3">Как выбрать входную дверь для квартиры</h3>
-                                        <p class="text-gray-600 mb-4">Руководство по выбору надежной входной двери: на что обратить внимание при покупке...</p>
-                                        <a href="/blog/post-2" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                        <h3 class="text-xl font-semibold mb-3">Открытие нового шоу-рума в Грозном</h3>
+                                        <p class="text-gray-600 mb-4">Мы рады сообщить об открытии нового шоу-рума площадью 300 м² с полным ассортиментом нашей продукции...</p>
+                                        <a href="/blog/post-6" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
                                     </div>
                                 </div>
                                 
                                 <!-- Post 2 -->
-                                <div x-show="activeCategory === 'all' || activeCategory === 'trends'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
-                                    <div class="h-48 bg-gray-400 flex items-center justify-center relative">
-                                        <i class="fas fa-palette text-5xl text-gray-500"></i>
-                                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-sm px-3 py-1 rounded">Тренды</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center text-gray-500 text-sm mb-3">
-                                            <span><i class="far fa-calendar-alt mr-1"></i> 5 ноября 2023</span>
-                                        </div>
-                                        <h3 class="text-xl font-semibold mb-3">Тренды в дизайне межкомнатных дверей 2023-2024</h3>
-                                        <p class="text-gray-600 mb-4">Какие цвета, материалы и конструкции будут популярны в ближайшем будущем...</p>
-                                        <a href="/blog/post-3" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Post 3 -->
-                                <div x-show="activeCategory === 'all' || activeCategory === 'care'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
-                                    <div class="h-48 bg-gray-500 flex items-center justify-center relative">
-                                        <i class="fas fa-broom text-5xl text-gray-500"></i>
-                                        <span class="absolute top-4 left-4 bg-yellow-600 text-white text-sm px-3 py-1 rounded">Уход</span>
-                                    </div>
-                                    <div class="p-6">
-                                        <div class="flex items-center text-gray-500 text-sm mb-3">
-                                            <span><i class="far fa-calendar-alt mr-1"></i> 1 ноября 2023</span>
-                                        </div>
-                                        <h3 class="text-xl font-semibold mb-3">Как ухаживать за дверьми из разных материалов</h3>
-                                        <p class="text-gray-600 mb-4">Правильный уход продлевает срок службы дверей и сохраняет их внешний вид...</p>
-                                        <a href="/blog/post-4" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Post 4 -->
                                 <div x-show="activeCategory === 'all' || activeCategory === 'tips'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
-                                    <div class="h-48 bg-gray-600 flex items-center justify-center relative">
-                                        <i class="fas fa-vector-square text-5xl text-gray-500"></i>
+                                    <div class="h-48 bg-gray-400 flex items-center justify-center relative">
+                                        <i class="fas fa-lock text-5xl text-gray-500"></i>
                                         <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Советы</span>
                                     </div>
                                     <div class="p-6">
                                         <div class="flex items-center text-gray-500 text-sm mb-3">
-                                            <span><i class="far fa-calendar-alt mr-1"></i> 28 октября 2023</span>
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 22 октября 2023</span>
                                         </div>
-                                        <h3 class="text-xl font-semibold mb-3">Как правильно замерить дверной проем</h3>
-                                        <p class="text-gray-600 mb-4">Пошаговая инструкция по самостоятельному замеру дверного проема для покупки новой двери...</p>
-                                        <a href="/blog/post-5" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                        <h3 class="text-xl font-semibold mb-3">Как выбрать надежный замок для входной двери</h3>
+                                        <p class="text-gray-600 mb-4">Обзор различных типов дверных замков, их преимущества и недостатки, рекомендации по выбору...</p>
+                                        <a href="/blog/post-7" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Post 3 -->
+                                <div x-show="activeCategory === 'all' || activeCategory === 'trends'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
+                                    <div class="h-48 bg-gray-500 flex items-center justify-center relative">
+                                        <i class="fas fa-paint-roller text-5xl text-gray-500"></i>
+                                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-sm px-3 py-1 rounded">Тренды</span>
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 18 октября 2023</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-3">Цветовые тренды в дверях на 2024 год</h3>
+                                        <p class="text-gray-600 mb-4">Какие цвета будут актуальны в интерьерах в следующем году и как выбрать дверь под стиль вашего дома...</p>
+                                        <a href="/blog/post-8" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Post 4 -->
+                                <div x-show="activeCategory === 'all' || activeCategory === 'care'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
+                                    <div class="h-48 bg-gray-600 flex items-center justify-center relative">
+                                        <i class="fas fa-soap text-5xl text-gray-500"></i>
+                                        <span class="absolute top-4 left-4 bg-yellow-600 text-white text-sm px-3 py-1 rounded">Уход</span>
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 15 октября 2023</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-3">Как очистить дверь от сложных загрязнений</h3>
+                                        <p class="text-gray-600 mb-4">Эффективные методы очистки различных типов дверных поверхностей без повреждения покрытия...</p>
+                                        <a href="/blog/post-9" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Post 5 -->
+                                <div x-show="activeCategory === 'all' || activeCategory === 'news'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
+                                    <div class="h-48 bg-gray-300 flex items-center justify-center relative">
+                                        <i class="fas fa-trophy text-5xl text-gray-500"></i>
+                                        <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Новости</span>
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 12 октября 2023</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-3">Наша продукция получила премию "Выбор года 2023"</h3>
+                                        <p class="text-gray-600 mb-4">Двери Гарант признаны лучшими в категории "Соотношение цена/качество" по версии экспертного жюри...</p>
+                                        <a href="/blog/post-10" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Post 6 -->
+                                <div x-show="activeCategory === 'all' || activeCategory === 'tips'" x-transition class="blog-card bg-white rounded-lg overflow-hidden shadow-md">
+                                    <div class="h-48 bg-gray-400 flex items-center justify-center relative">
+                                        <i class="fas fa-ruler-combined text-5xl text-gray-500"></i>
+                                        <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Советы</span>
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                                            <span><i class="far fa-calendar-alt mr-1"></i> 8 октября 2023</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-3">Как правильно подготовить дверной проём для установки</h3>
+                                        <p class="text-gray-600 mb-4">Пошаговое руководство по подготовке проёма для идеальной установки двери без лишних проблем...</p>
+                                        <a href="/blog/post-11" class="text-blue-800 font-semibold hover:underline">Читать далее →</a>
                                     </div>
                                 </div>
                             </div>
@@ -232,16 +240,16 @@
                             <!-- Pagination -->
                             <div class="pagination mt-12">
                                 <ul class="flex list-none">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/blog.html">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
                                     </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="blog.html">1</a>
-                                    </li>
                                     <li class="page-item">
-                                        <a class="page-link" href="blog-2.html">2</a>
+                                        <a class="page-link" href="/blog.html">1</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="/blog-2.html">2</a>
                                     </li>
                                     <li class="page-item">
                                         <a class="page-link" href="#">
@@ -272,31 +280,31 @@
                                     <li>
                                         <a href="#" class="flex justify-between items-center text-gray-700 hover:text-blue-800">
                                             <span>Советы по выбору</span>
-                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">12</span>
+                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">15</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" class="flex justify-between items-center text-gray-700 hover:text-blue-800">
                                             <span>Новости компании</span>
-                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">8</span>
+                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">12</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" class="flex justify-between items-center text-gray-700 hover:text-blue-800">
                                             <span>Тренды и дизайн</span>
-                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">5</span>
+                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">8</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" class="flex justify-between items-center text-gray-700 hover:text-blue-800">
                                             <span>Уход и обслуживание</span>
-                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">7</span>
+                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">10</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" class="flex justify-between items-center text-gray-700 hover:text-blue-800">
                                             <span>Установка и монтаж</span>
-                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">9</span>
+                                            <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full">11</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -376,6 +384,7 @@
 
     <!-- Mobile sidebar overlay -->
     <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    
     <script src="scripts.js"></script>
 
 </body>

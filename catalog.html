@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Product card hover effect */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        /* Filter sidebar */
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .filter-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .filter-content.open {
+            max-height: 500px;
+        }
+        /* Checkbox styling */
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        /* Range slider */
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e40af;
+            cursor: pointer;
+        }
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1e40af;
+            cursor: pointer;
+        }
+        /* Active filter tag */
+        .active-filter {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e0e7ff;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ 
+    mobileMenuOpen: false, 
+    sidebarOpen: false,
+    filtersOpen: true,
+    sortBy: 'popular',
+    priceRange: 50000,
+    activeFilters: {
+        categories: [],
+        collections: [],
+        colors: [],
+        features: []
+    },
+    mobileFiltersOpen: false,
+    products: [
+        { id: 1, name: 'Дверь входная Комфорт 6.0', category: 'entrance', collection: 'comfort', price: 25990, oldPrice: 28990, color: 'Белый', material: 'Сталь', rating: 4.8, reviews: 42, image: 'door-closed', featured: true, discount: true },
+        { id: 2, name: 'Дверь межкомнатная Smart X', category: 'interior', collection: 'smart', price: 15490, oldPrice: null, color: 'Дуб', material: 'Экошпон', rating: 4.7, reviews: 38, image: 'door-open', featured: false, discount: false },
+        { id: 3, name: 'Дверь межкомнатная ALTO', category: 'interior', collection: 'pvc', price: 18750, oldPrice: 19990, color: 'Белый глянец', material: 'ПВХ', rating: 4.9, reviews: 51, image: 'door-open', featured: true, discount: true },
+        { id: 4, name: 'Дверь входная Эталон', category: 'entrance', collection: 'etalon', price: 32990, oldPrice: null, color: 'Серый графит', material: 'Сталь', rating: 4.6, reviews: 27, image: 'door-closed', featured: false, discount: false },
+        { id: 5, name: 'Арка межкомнатная PORTALe', category: 'arches', collection: 'portale', price: 12900, oldPrice: 14500, color: 'Белый', material: 'МДФ', rating: 4.5, reviews: 19, image: 'archway', featured: false, discount: true },
+        { id: 6, name: 'Дверь складная SMART', category: 'interior', collection: 'smart', price: 21490, oldPrice: null, color: 'Орех', material: 'Экошпон', rating: 4.3, reviews: 14, image: 'door-open', featured: false, discount: false },
+        { id: 7, name: 'Дверь входная Меркурий', category: 'entrance', collection: 'mercury', price: 18990, oldPrice: 21990, color: 'Коричневый', material: 'Сталь', rating: 4.4, reviews: 23, image: 'door-closed', featured: false, discount: true },
+        { id: 8, name: 'Дверь раздвижная FUTURA', category: 'interior', collection: 'pvc', price: 23100, oldPrice: null, color: 'Серый', material: 'ПВХ', rating: 4.7, reviews: 31, image: 'door-open', featured: true, discount: false },
+        { id: 9, name: 'Комплект фурнитуры Премиум', category: 'accessories', collection: 'premium', price: 5490, oldPrice: 6490, color: 'Хром', material: 'Металл', rating: 4.8, reviews: 47, image: 'tools', featured: false, discount: true }
+    ],
+    toggleFilter(type, value) {
+        if (this.activeFilters[type].includes(value)) {
+            this.activeFilters[type] = this.activeFilters[type].filter(item => item !== value);
+        } else {
+            this.activeFilters[type].push(value);
+        }
+    },
+    clearAllFilters() {
+        this.activeFilters = {
+            categories: [],
+            collections: [],
+            colors: [],
+            features: []
+        };
+        this.priceRange = 50000;
+    },
+    get filteredProducts() {
+        return this.products.filter(product => {
+            // Category filter
+            if (this.activeFilters.categories.length > 0 && !this.activeFilters.categories.includes(product.category)) {
+                return false;
+            }
+            
+            // Collection filter
+            if (this.activeFilters.collections.length > 0 && !this.activeFilters.collections.includes(product.collection)) {
+                return false;
+            }
+            
+            // Color filter
+            if (this.activeFilters.colors.length > 0 && !this.activeFilters.colors.includes(product.color)) {
+                return false;
+            }
+            
+            // Price filter
+            if (product.price > this.priceRange) {
+                return false;
+            }
+            
+            return true;
+        });
+    }
+ }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>        
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button @click="mobileFiltersOpen = true" class="p-2 text-gray-700">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero-section text-white py-16 px-4 md:px-8 bg-center bg-cover relative" style="background-image: url('assets/images/hero-bg.jpg');">
+                <!-- Dark overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div class="container mx-auto relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Каталог дверей</h1>
+                    <p class="text-xl max-w-3xl mx-auto">
+                        Широкий выбор качественных дверей для вашего дома, офиса и коммерческих помещений
+                    </p>
+                </div>
+            </section>
+
+            <!-- Catalog Content -->
+            <section class="py-8 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <!-- Breadcrumb -->
+                    <nav class="flex mb-6" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="/" class="text-gray-500 hover:text-blue-800">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <span class="text-gray-700">Каталог</span>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <!-- Filters Sidebar (Desktop) -->
+                        <div class="hidden lg:block lg:w-1/4">
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm sticky top-24">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-xl font-semibold">Фильтры</h2>
+                                    <button @click="filtersOpen = !filtersOpen" class="text-gray-500 hover:text-blue-800">
+                                        <i class="fas" :class="filtersOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                                    </button>
+                                </div>
+
+                                <div x-show="filtersOpen">
+                                    <!-- Price Filter -->
+                                    <div class="filter-group">
+                                        <div class="filter-title">
+                                            <span>Цена, руб.</span>
+                                        </div>
+                                        <div class="filter-content open">
+                                            <input type="range" min="5000" max="100000" step="5000" x-model="priceRange" class="range-slider mb-4">
+                                            <div class="flex justify-between text-sm text-gray-600">
+                                                <span>5 000</span>
+                                                <span x-text="priceRange.toLocaleString('ru-RU')"></span>
+                                                <span>100 000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Category Filter -->
+                                    <div class="filter-group">
+                                        <div class="filter-title" @click="filtersOpen = !filtersOpen">
+                                            <span>Категория</span>
+                                            <i class="fas fa-chevron-down text-xs"></i>
+                                        </div>
+                                        <div class="filter-content" :class="{ 'open': filtersOpen }">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="cat-entrance" x-model="activeFilters.categories" value="entrance">
+                                                <label for="cat-entrance">Входные двери</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="cat-interior" x-model="activeFilters.categories" value="interior">
+                                                <label for="cat-interior">Межкомнатные двери</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="cat-arches" x-model="activeFilters.categories" value="arches">
+                                                <label for="cat-arches">Арки</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="cat-accessories" x-model="activeFilters.categories" value="accessories">
+                                                <label for="cat-accessories">Фурнитура</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Collection Filter -->
+                                    <div class="filter-group">
+                                        <div class="filter-title" @click="filtersOpen = !filtersOpen">
+                                            <span>Коллекция</span>
+                                            <i class="fas fa-chevron-down text-xs"></i>
+                                        </div>
+                                        <div class="filter-content" :class="{ 'open': filtersOpen }">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-comfort" x-model="activeFilters.collections" value="comfort">
+                                                <label for="col-comfort">Комфорт</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-etalon" x-model="activeFilters.collections" value="etalon">
+                                                <label for="col-etalon">Эталон</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-mercury" x-model="activeFilters.collections" value="mercury">
+                                                <label for="col-mercury">Меркурий</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-smart" x-model="activeFilters.collections" value="smart">
+                                                <label for="col-smart">Smart</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-pvc" x-model="activeFilters.collections" value="pvc">
+                                                <label for="col-pvc">ПВХ</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="col-portale" x-model="activeFilters.collections" value="portale">
+                                                <label for="col-portale">PORTALe</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Color Filter -->
+                                    <div class="filter-group">
+                                        <div class="filter-title" @click="filtersOpen = !filtersOpen">
+                                            <span>Цвет</span>
+                                            <i class="fas fa-chevron-down text-xs"></i>
+                                        </div>
+                                        <div class="filter-content" :class="{ 'open': filtersOpen }">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="color-white" x-model="activeFilters.colors" value="Белый">
+                                                <label for="color-white">Белый</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="color-gray" x-model="activeFilters.colors" value="Серый">
+                                                <label for="color-gray">Серый</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="color-brown" x-model="activeFilters.colors" value="Коричневый">
+                                                <label for="color-brown">Коричневый</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="color-oak" x-model="activeFilters.colors" value="Дуб">
+                                                <label for="color-oak">Дуб</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="color-walnut" x-model="activeFilters.colors" value="Орех">
+                                                <label for="color-walnut">Орех</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Features Filter -->
+                                    <div class="filter-group">
+                                        <div class="filter-title" @click="filtersOpen = !filtersOpen">
+                                            <span>Особенности</span>
+                                            <i class="fas fa-chevron-down text-xs"></i>
+                                        </div>
+                                        <div class="filter-content" :class="{ 'open': filtersOpen }">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="feat-discount" x-model="activeFilters.features" value="discount">
+                                                <label for="feat-discount">Со скидкой</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="feat-new" x-model="activeFilters.features" value="new">
+                                                <label for="feat-new">Новинки</label>
+                                            </div>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="feat-bestseller" x-model="activeFilters.features" value="bestseller">
+                                                <label for="feat-bestseller">Хиты продаж</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button @click="clearAllFilters()" class="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded">
+                                        Сбросить все фильтры
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products Section -->
+                        <div class="lg:w-3/4">
+                            <!-- Active Filters -->
+                            <div class="mb-6 p-4 bg-gray-50 rounded-lg" x-show="activeFilters.categories.length > 0 || activeFilters.collections.length > 0 || activeFilters.colors.length > 0 || activeFilters.features.length > 0 || priceRange < 50000">
+                                <div class="flex flex-wrap items-center">
+                                    <span class="text-gray-700 mr-2">Активные фильтры:</span>
+                                    
+                                    <template x-for="category in activeFilters.categories">
+                                        <span class="active-filter">
+                                            <span x-text="getCategoryName(category)"></span>
+                                            <button @click="toggleFilter('categories', category)" class="ml-1 text-blue-800 hover:text-blue-600">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </template>
+                                    
+                                    <template x-for="collection in activeFilters.collections">
+                                        <span class="active-filter">
+                                            <span x-text="getCollectionName(collection)"></span>
+                                            <button @click="toggleFilter('collections', collection)" class="ml-1 text-blue-800 hover:text-blue-600">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </template>
+                                    
+                                    <template x-for="color in activeFilters.colors">
+                                        <span class="active-filter">
+                                            <span x-text="color"></span>
+                                            <button @click="toggleFilter('colors', color)" class="ml-1 text-blue-800 hover:text-blue-600">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </template>
+                                    
+                                    <template x-for="feature in activeFilters.features">
+                                        <span class="active-filter">
+                                            <span x-text="getFeatureName(feature)"></span>
+                                            <button @click="toggleFilter('features', feature)" class="ml-1 text-blue-800 hover:text-blue-600">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </template>
+                                    
+                                    <span x-show="priceRange < 50000" class="active-filter">
+                                        <span>Цена до: <span x-text="priceRange.toLocaleString('ru-RU')"></span> руб.</span>
+                                        <button @click="priceRange = 50000" class="ml-1 text-blue-800 hover:text-blue-600">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </span>
+                                    
+                                    <button @click="clearAllFilters()" class="text-blue-800 hover:text-blue-600 font-medium">
+                                        Очистить все
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Sort and View Options -->
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                                <p class="text-gray-600 mb-4 md:mb-0">
+                                    Найдено <span class="font-semibold" x-text="filteredProducts.length"></span> товаров
+                                </p>
+                                <div class="flex items-center">
+                                    <span class="text-gray-600 mr-3">Сортировка:</span>
+                                    <select x-model="sortBy" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                                        <option value="popular">По популярности</option>
+                                        <option value="price-asc">По возрастанию цены</option>
+                                        <option value="price-desc">По убыванию цены</option>
+                                        <option value="newest">Сначала новинки</option>
+                                        <option value="rating">По рейтингу</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Products Grid -->
+                            <template x-if="filteredProducts.length > 0">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <template x-for="product in filteredProducts" :key="product.id">
+                                        <div class="product-card bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                                            <div class="relative">
+                                                <div class="h-56 bg-gray-300 flex items-center justify-center">
+                                                    <i class="fas" :class="{
+                                                        'fa-door-closed': product.image === 'door-closed',
+                                                        'fa-door-open': product.image === 'door-open',
+                                                        'fa-archway': product.image === 'archway',
+                                                        'fa-tools': product.image === 'tools'
+                                                    }" class="text-5xl text-gray-500"></i>
+                                                </div>
+                                                <div class="absolute top-4 left-4">
+                                                    <template x-if="product.discount">
+                                                        <span class="bg-red-600 text-white text-sm px-2 py-1 rounded">-10%</span>
+                                                    </template>
+                                                    <template x-if="product.featured">
+                                                        <span class="bg-blue-800 text-white text-sm px-2 py-1 rounded mt-2 block">Хит</span>
+                                                    </template>
+                                                </div>
+                                                <button class="absolute top-4 right-4 bg-white text-gray-500 p-2 rounded-full shadow-md hover:text-blue-800">
+                                                    <i class="far fa-heart"></i>
+                                                </button>
+                                            </div>
+                                            <div class="p-4">
+                                                <span class="text-sm text-gray-500" x-text="getCategoryName(product.category)"></span>
+                                                <h3 class="text-lg font-semibold mb-2" x-text="product.name"></h3>
+                                                <div class="flex items-center mb-3">
+                                                    <div class="text-yellow-400 mr-1">
+                                                        <template x-for="i in 5">
+                                                            <i class="fas fa-star" :class="{ 'text-gray-300': i > Math.round(product.rating) }"></i>
+                                                        </template>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500 ml-1" x-text="'(' + product.reviews + ')'"></span>
+                                                </div>
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <span class="text-xl font-bold text-blue-800" x-text="product.price.toLocaleString('ru-RU') + ' ₽'"></span>
+                                                        <template x-if="product.oldPrice">
+                                                            <span class="block text-sm text-gray-500 line-through" x-text="product.oldPrice.toLocaleString('ru-RU') + ' ₽'"></span>
+                                                        </template>
+                                                    </div>
+                                                    <button class="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <!-- No products message -->
+                            <template x-if="filteredProducts.length === 0">
+                                <div class="text-center py-12">
+                                    <i class="fas fa-search text-5xl text-gray-300 mb-4"></i>
+                                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Товары не найдены</h3>
+                                    <p class="text-gray-500 mb-6">Попробуйте изменить параметры фильтрации или сбросить фильтры</p>
+                                    <button @click="clearAllFilters()" class="bg-blue-800 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">
+                                        Сбросить фильтры
+                                    </button>
+                                </div>
+                            </template>
+
+                            <!-- Pagination -->
+                            <div class="mt-12 flex justify-center">
+                                <nav class="flex items-center space-x-2">
+                                    <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                    <a href="#" class="px-3 py-1 rounded border border-blue-800 bg-blue-800 text-white">1</a>
+                                    <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">2</a>
+                                    <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">3</a>
+                                    <span class="px-2 py-1 text-gray-500">...</span>
+                                    <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-50">10</a>
+                                    <a href="#" class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-16 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Почему выбирают наши двери</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-award text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Качество подтверждено</h3>
+                            <p class="text-gray-600">Вся продукция имеет сертификаты качества и прошла испытания на государственных объектах</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-truck text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Быстрая доставка</h3>
+                            <p class="text-gray-600">Доставляем заказы по Грозному и всей Чечне в кратчайшие сроки</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-tools text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Профессиональный монтаж</h3>
+                            <p class="text-gray-600">Опытные мастера аккуратно установят двери с гарантией на работы</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Mobile Filters Modal -->
+    <div x-show="mobileFiltersOpen" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end" x-transition>
+        <div class="bg-white w-full max-h-4/5 overflow-y-auto rounded-t-2xl">
+            <div class="p-4 border-b sticky top-0 bg-white z-10">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold">Фильтры</h2>
+                    <button @click="mobileFiltersOpen = false" class="text-gray-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-4">
+                <!-- Mobile filters content would go here -->
+                <p class="text-center py-8 text-gray-500">Фильтры будут отображены здесь</p>
+            </div>
+            <div class="p-4 border-t sticky bottom-0 bg-white">
+                <div class="flex space-x-4">
+                    <button @click="clearAllFilters()" class="flex-1 bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded">
+                        Сбросить
+                    </button>
+                    <button @click="mobileFiltersOpen = false" class="flex-1 bg-blue-800 text-white font-medium py-3 px-4 rounded">
+                        Показать товары
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>    
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    <script src="scripts.js"></script>
+    <script>
+
+        // Helper functions for Alpine.js
+        function getCategoryName(category) {
+            const categories = {
+                'entrance': 'Входные',
+                'interior': 'Межкомнатные',
+                'arches': 'Арки',
+                'accessories': 'Фурнитура'
+            };
+            return categories[category] || category;
+        }
+
+        function getCollectionName(collection) {
+            const collections = {
+                'comfort': 'Комфорт',
+                'etalon': 'Эталон',
+                'mercury': 'Меркурий',
+                'smart': 'Smart',
+                'pvc': 'ПВХ',
+                'portale': 'PORTALe',
+                'premium': 'Премиум'
+            };
+            return collections[collection] || collection;
+        }
+
+        function getFeatureName(feature) {
+            const features = {
+                'discount': 'Со скидкой',
+                'new': 'Новинки',
+                'bestseller': 'Хиты продаж'
+            };
+            return features[feature] || feature;
+        }
+
+        // Add these functions to the Alpine.js scope
+        document.addEventListener('alpine:init', () => {
+            Alpine.magic('getCategoryName', () => getCategoryName);
+            Alpine.magic('getCollectionName', () => getCollectionName);
+            Alpine.magic('getFeatureName', () => getFeatureName);
+        });
+    </script>
+</body>
+</html>
