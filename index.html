@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гарант - Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        }
+
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false }">
+        <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white px-4 py-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero-section text-white py-16 px-4 md:px-8 bg-center bg-cover relative" style="background-image: url('assets/images/hero-bg.jpg');">
+                <!-- Dark overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div class="container mx-auto relative z-10 flex h-full">
+                    <div class="max-w-2xl">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Качественные двери для вашего дома и офиса</h1>
+                        <p class="text-xl mb-8">Продукция, проверенная на государственных объектах с лицензиями Госстроя России</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="/catalog" class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded">
+                                Смотреть каталог
+                            </a>
+                            <a href="/contact" class="bg-white hover:bg-gray-100 text-blue-800 font-bold py-3 px-6 rounded">
+                                Получить консультацию
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Featured Categories -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Популярные категории</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Category 1 -->
+                        <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-closed text-6xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">Входные двери</h3>
+                                <p class="text-gray-600 mb-4">Надёжные и безопасные входные двери для квартир и домов</p>
+                                <a href="#" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 2 -->
+                        <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-open text-6xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">Межкомнатные двери</h3>
+                                <p class="text-gray-600 mb-4">Элегантные решения для разделения пространства в интерьере</p>
+                                <a href="#" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Category 3 -->
+                        <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-archway text-6xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">Межкомнатные арки</h3>
+                                <p class="text-gray-600 mb-4">Современные арочные конструкции для создания уникального интерьера</p>
+                                <a href="#" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Популярные товары</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Product 1 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-closed text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-blue-800 font-semibold">Входные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Серия Комфорт 6.0</h3>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold">25 990 ₽</span>
+                                    <button class="bg-blue-800 text-white px-3 py-1 rounded hover:bg-blue-700">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-blue-800 font-semibold">Межкомнатные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Коллекция Smart X</h3>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold">15 490 ₽</span>
+                                    <button class="bg-blue-800 text-white px-3 py-1 rounded hover:bg-blue-700">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-blue-800 font-semibold">Межкомнатные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Коллекция ALTO</h3>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold">18 750 ₽</span>
+                                    <button class="bg-blue-800 text-white px-3 py-1 rounded hover:bg-blue-700">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-archway text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-blue-800 font-semibold">Межкомнатные арки</span>
+                                <h3 class="text-lg font-semibold my-2">Система PORTALe</h3>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xl font-bold">12 900 ₽</span>
+                                    <button class="bg-blue-800 text-white px-3 py-1 rounded hover:bg-blue-700">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-12">
+                        <a href="/catalog" class="inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
+                            Смотреть все товары
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advantages -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Почему выбирают нас</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-award text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Качество подтверждено</h3>
+                            <p class="text-gray-600">Лицензии Госстроя России, испытания на государственных объектах</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-truck text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Быстрая доставка</h3>
+                            <p class="text-gray-600">Доставим заказ в Грозный и по всей Чечне в кратчайшие сроки</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-tools text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Профессиональный монтаж</h3>
+                            <p class="text-gray-600">Опытные мастера аккуратно установят двери и арки</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-headset text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Поддержка 24/7</h3>
+                            <p class="text-gray-600">Консультации по выбору и помощь на всех этапах</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Нужна консультация по выбору дверей?</h2>
+                    <p class="text-xl mb-8">Наши специалисты помогут вам выбрать идеальную дверь для вашего дома или офиса</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="tel:+78001234567" class="bg-white text-blue-800 font-bold py-3 px-8 rounded hover:bg-gray-100 transition-colors">
+                            Позвонить нам
+                        </a>
+                        <a href="/contact" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded hover:bg-white hover:text-blue-800 transition-colors">
+                            Написать сообщение
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    <script src="scripts.js"></script>
+</body>
+</html>

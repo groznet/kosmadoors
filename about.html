@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Timeline style */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            border-left: 3px solid #1e40af;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -3.4rem;
+            top: 0.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            background: #1e40af;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero-section text-white py-16 px-4 md:px-8 bg-center bg-cover relative" style="background-image: url('assets/images/hero-bg.jpg');">
+                <!-- Dark overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div class="container mx-auto relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">О компании Гарант</h1>
+                    <p class="text-xl max-w-3xl mx-auto">
+                        Производим качественные двери для вашего дома и офиса с 2005 года. Наша продукция прошла испытания на государственных объектах и имеет лицензии Госстроя России.
+                    </p>
+                </div>
+            </section>
+
+            <!-- About Intro -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <div class="flex flex-col md:flex-row items-center gap-10">
+                        <div class="md:w-1/2">
+                            <div class="bg-gray-200 h-80 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-building text-6xl text-gray-500"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h2 class="text-3xl font-bold mb-6">Наша история</h2>
+                            <p class="text-gray-700 mb-4">Компания «Гарант» начала свою деятельность в 2005 году с небольшой мастерской по производству межкомнатных дверей. За годы работы мы выросли в крупного производителя, предлагающего широкий спектр дверной продукции.</p>
+                            <p class="text-gray-700 mb-4">Сегодня наша продукция неоднократно выдерживала испытания на различных государственных объектах, а ее качество подтверждено лицензиями Госстроя России.</p>
+                            <p class="text-gray-700">Мы гордимся тем, что наши двери устанавливаются в квартирах, домах и офисах по всей Чечне и за ее пределами, обеспечивая безопасность и комфорт нашим клиентам.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission and Values -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Наша миссия и ценности</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bullseye text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Миссия</h3>
+                            <p class="text-gray-600">Создавать качественные, доступные и надежные дверные решения, которые обеспечивают безопасность, комфорт и эстетическую привлекательность помещений для наших клиентов.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-eye text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Видение</h3>
+                            <p class="text-gray-600">Стать лидером рынка дверной продукции в Чеченской Республике и одним из ведущих производителей на Северном Кавказе, известным своим безупречным качеством и сервисом.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-hand-holding-heart text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Ценности</h3>
+                            <p class="text-gray-600">Качество продукции, удовлетворенность клиентов, честность в бизнесе, инновации в производстве, ответственность перед обществом и забота об окружающей среде.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-800 text-white p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">Наши преимущества</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-2xl mr-4 mt-1 text-blue-300"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-2">Собственное производство</h4>
+                                    <p>Контролируем каждый этап производства, гарантируя высокое качество продукции.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-2xl mr-4 mt-1 text-blue-300"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-2">Современное оборудование</h4>
+                                    <p>Используем передовые технологии и оборудование для производства дверей.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-2xl mr-4 mt-1 text-blue-300"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-2">Контроль качества</h4>
+                                    <p>Каждая дверь проходит многоступенчатый контроль перед отправкой клиенту.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-2xl mr-4 mt-1 text-blue-300"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-2">Экологичность</h4>
+                                    <p>Используем экологически чистые материалы и безопасные технологии производства.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">История компании</h2>
+                    
+                    <div class="timeline max-w-3xl mx-auto">
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2005</h3>
+                            <p class="text-gray-700">Основание компании. Начало работы с небольшой мастерской по производству межкомнатных дверей.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2008</h3>
+                            <p class="text-gray-700">Расширение ассортимента за счет запуска производства входных дверей.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2012</h3>
+                            <p class="text-gray-700">Открытие нового производственного цеха площадью 2000 м². Получение лицензии Госстроя России.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2015</h3>
+                            <p class="text-gray-700">Запуск собственной линии покраски и отделки. Расширение дилерской сети по Северному Кавказу.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2019</h3>
+                            <p class="text-gray-700">Модернизация оборудования. Внедрение системы контроля качества на всех этапах производства.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-semibold mb-2">2022</h3>
+                            <p class="text-gray-700">Запуск интернет-магазина и онлайн-консультации. Расширение ассортимента до 150+ моделей дверей.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Наши сертификаты</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-gray-200 h-48 flex items-center justify-center mb-4 rounded">
+                                <i class="fas fa-certificate text-5xl text-yellow-500"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Лицензия Госстроя России</h3>
+                            <p class="text-gray-600">Сертификат соответствия ГОСТ №12345 от 12.03.2018</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-gray-200 h-48 flex items-center justify-center mb-4 rounded">
+                                <i class="fas fa-award text-5xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Сертификат качества</h3>
+                            <p class="text-gray-600">Международный стандарт ISO 9001:2015</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                            <div class="bg-gray-200 h-48 flex items-center justify-center mb-4 rounded">
+                                <i class="fas fa-shield-alt text-5xl text-green-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Экологический сертификат</h3>
+                            <p class="text-gray-600">Подтверждение экологической безопасности материалов</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Хотите узнать больше о нашей продукции?</h2>
+                    <p class="text-xl mb-8">Наши специалисты с радостью ответят на все ваши вопросы и помогут подобрать идеальные двери для вашего дома или офиса</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="/catalog" class="bg-white text-blue-800 font-bold py-3 px-8 rounded hover:bg-gray-100 transition-colors">
+                            Перейти в каталог
+                        </a>
+                        <a href="/contact" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded hover:bg-white hover:text-blue-800 transition-colors">
+                            Связаться с нами
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    <script src="scripts.js"></script>
+</body>
+</html>

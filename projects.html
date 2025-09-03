@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши проекты - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Project card hover effect */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        /* Active tab style */
+        .tab-active {
+            background-color: #1e40af;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false, activeTab: 'all' }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>        
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero-section text-white py-16 px-4 md:px-8">
+                <div class="container mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Наши проекты</h1>
+                    <p class="text-xl mx-auto">Реализованные проекты установки дверей в квартирах, домах и офисах по всей Чечне</p>
+                </div>
+            </section>
+
+            <!-- Projects Tabs -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Примеры наших работ</h2>
+                    
+                    <!-- Tabs Navigation -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-12">
+                        <button 
+                            @click="activeTab = 'all'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'all', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'all' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Все проекты
+                        </button>
+                        <button 
+                            @click="activeTab = 'entrance'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'entrance', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'entrance' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Входные двери
+                        </button>
+                        <button 
+                            @click="activeTab = 'interior'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'interior', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'interior' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Межкомнатные двери
+                        </button>
+                        <button 
+                            @click="activeTab = 'arches'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'arches', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'arches' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Арки
+                        </button>
+                        <button 
+                            @click="activeTab = 'floors'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'floors', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'floors' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Напольные покрытия
+                        </button>
+                        <button 
+                            @click="activeTab = 'commercial'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'commercial', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'commercial' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Коммерческие объекты
+                        </button>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div x-show="activeTab === 'all' || activeTab === 'entrance'" x-transition class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'entrance'">Входные двери</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Project 1 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-door-closed text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Входные двери</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Квартира в ЖК "Солнечный"</h4>
+                                    <p class="text-gray-600 mb-4">Установка входной двери серии "Комфорт 6.0" в новой квартире</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-home text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Входные двери</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Частный дом в с. Пригородное</h4>
+                                    <p class="text-gray-600 mb-4">Установка усиленной входной двери с терморазрывом</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">с. Пригородное</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 3 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-building text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Входные двери</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Офисное здание на пр. Путина</h4>
+                                    <p class="text-gray-600 mb-4">Установка 12 входных дверей в бизнес-центре</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div x-show="activeTab === 'all' || activeTab === 'interior'" x-transition class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'interior'">Межкомнатные двери</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Project 1 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Квартира в центре Грозного</h4>
+                                    <p class="text-gray-600 mb-4">Установка 6 межкомнатных дверей коллекции "Smart X"</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Коттедж в с. Центорой</h4>
+                                    <p class="text-gray-600 mb-4">Установка 10 межкомнатных дверей с фурнитурой</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">с. Центорой</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 3 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Офис страховой компании</h4>
+                                    <p class="text-gray-600 mb-4">Установка 8 межкомнатных дверей коллекции "ALTO"</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div x-show="activeTab === 'all' || activeTab === 'arches'" x-transition class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'arches'">Арки</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Project 1 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-archway text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-purple-600 text-white text-sm px-3 py-1 rounded">Арки</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Квартира в ЖК "Европа"</h4>
+                                    <p class="text-gray-600 mb-4">Установка арочной конструкции между гостиной и кухней</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-archway text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-purple-600 text-white text-sm px-3 py-1 rounded">Арки</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Ресторан "Кавказ"</h4>
+                                    <p class="text-gray-600 mb-4">Установка арок в интерьере ресторана</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 3 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-archway text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-purple-600 text-white text-sm px-3 py-1 rounded">Арки</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Частный дом в с. Алхан-Кала</h4>
+                                    <p class="text-gray-600 mb-4">Установка трёх арочных проёмов</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">с. Алхан-Кала</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional tab content for other categories would follow the same pattern -->
+                    
+                    <div x-show="activeTab === 'all' || activeTab === 'floors'" x-transition class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'floors'">Напольные покрытия</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Project 1 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-border-style text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-yellow-600 text-white text-sm px-3 py-1 rounded">Покрытия</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Квартира на ул. Маяковского</h4>
+                                    <p class="text-gray-600 mb-4">Укладка ламината в трёх комнатах</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-border-style text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-yellow-600 text-white text-sm px-3 py-1 rounded">Покрытия</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Офисное помещение</h4>
+                                    <p class="text-gray-600 mb-4">Укладка коммерческого линолеума</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div x-show="activeTab === 'all' || activeTab === 'commercial'" x-transition class="mb-12">
+                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'commercial'">Коммерческие объекты</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Project 1 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-hotel text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-red-600 text-white text-sm px-3 py-1 rounded">Коммерческие</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Гостиница "Грозный-Сити"</h4>
+                                    <p class="text-gray-600 mb-4">Установка дверей в 50 номерах</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Project 2 -->
+                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                    <i class="fas fa-building text-5xl text-gray-500"></i>
+                                    <span class="absolute top-4 left-4 bg-red-600 text-white text-sm px-3 py-1 rounded">Коммерческие</span>
+                                </div>
+                                <div class="p-6">
+                                    <h4 class="text-xl font-semibold mb-2">Бизнес-центр "Чечен-Плаза"</h4>
+                                    <p class="text-gray-600 mb-4">Комплексное оснащение офисных помещений</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-blue-800 font-medium">Грозный</span>
+                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Хотите такой же качественный проект?</h2>
+                    <p class="text-xl mb-8">Наши специалисты разработают для вас индивидуальное решение и реализуют его с безупречным качеством</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="/contact" class="bg-white text-blue-800 font-bold py-3 px-8 rounded hover:bg-gray-100 transition-colors">
+                            Обсудить проект
+                        </a>
+                        <a href="/catalog" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded hover:bg-white hover:text-blue-800 transition-colors">
+                            Смотреть каталог
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>    
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    <script src="scripts.js"></script>
+</body>
+</html>

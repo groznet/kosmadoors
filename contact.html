@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Map container */
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        /* Form styling */
+        .form-input {
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false, formSubmitted: false }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="hero-section text-white py-16 px-4 md:px-8 bg-center bg-cover relative" style="background-image: url('assets/images/hero-bg.jpg');">
+                <!-- Dark overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div class="container mx-auto relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Свяжитесь с нами</h1>
+                    <p class="text-xl max-w-3xl mx-auto">Наши специалисты готовы ответить на все ваши вопросы и помочь с выбором дверей для вашего дома или офиса</p>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Контактная информация</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-phone text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Телефон</h3>
+                            <p class="text-gray-600 mb-2">+7 (800) 123-45-67</p>
+                            <p class="text-sm text-gray-500">Бесплатный звонок по России</p>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-envelope text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Email</h3>
+                            <p class="text-gray-600 mb-2">info@garant.ru</p>
+                            <p class="text-sm text-gray-500">Для общих вопросов</p>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-map-marker-alt text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Адрес</h3>
+                            <p class="text-gray-600 mb-2">ул. Примерная, 123</p>
+                            <p class="text-sm text-gray-500">Грозный, Чечня</p>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gray-50 rounded-lg shadow-sm">
+                            <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fab fa-telegram text-2xl text-blue-800"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Telegram</h3>
+                            <p class="text-gray-600 mb-2">@garant</p>
+                            <p class="text-sm text-gray-500">Быстрая связь</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <h3 class="text-2xl font-bold mb-6">График работы</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                                <div class="flex justify-between items-center py-3 border-b">
+                                    <span class="font-medium">Понедельник - Пятница</span>
+                                    <span>9:00 - 18:00</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3 border-b">
+                                    <span class="font-medium">Суббота</span>
+                                    <span>10:00 - 16:00</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3">
+                                    <span class="font-medium">Воскресенье</span>
+                                    <span>Выходной</span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-2xl font-bold my-6">Способы связи</h3>
+                            <div class="flex space-x-4 mb-8">
+                                <a href="#" class="bg-blue-800 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-700">
+                                    <i class="fab fa-vk text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-400">
+                                    <i class="fab fa-telegram text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-pink-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-pink-500">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-red-500">
+                                    <i class="fab fa-youtube text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6">Срочная связь</h3>
+                            <div class="bg-blue-800 text-white p-6 rounded-lg">
+                                <p class="mb-4">Нужна срочная консультация или выезд замерщика?</p>
+                                <a href="tel:+78001234567" class="inline-block bg-white text-blue-800 font-bold py-3 px-6 rounded-lg mb-3 w-full text-center">
+                                    <i class="fas fa-phone mr-2"></i>Позвонить сейчас
+                                </a>
+                                <a href="https://t.me/garant" class="inline-block bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg w-full text-center">
+                                    <i class="fab fa-telegram mr-2"></i>Написать в Telegram
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Form and Map -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <!-- Contact Form -->
+                        <div>
+                            <h2 class="text-3xl font-bold mb-6">Напишите нам</h2>
+                            <p class="text-gray-600 mb-8">Заполните форму ниже, и наш специалист свяжется с вами в ближайшее время</p>
+                            
+                            <div x-show="formSubmitted" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+                                <p>Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.</p>
+                            </div>
+                            
+                            <form @submit.prevent="formSubmitted = true" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Ваше имя</label>
+                                    <input type="text" id="name" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="phone" class="block text-gray-700 font-medium mb-2">Телефон</label>
+                                    <input type="tel" id="phone" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                    <input type="email" id="email" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                </div>
+                                
+                                <div>
+                                    <label for="category" class="block text-gray-700 font-medium mb-2">Категория вопроса</label>
+                                    <select id="category" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <option value="">Выберите категорию</option>
+                                        <option value="entrance">Входные двери</option>
+                                        <option value="interior">Межкомнатные двери</option>
+                                        <option value="arches">Арки</option>
+                                        <option value="floors">Напольные покрытия</option>
+                                        <option value="installation">Установка и монтаж</option>
+                                        <option value="warranty">Гарантия и сервис</option>
+                                        <option value="other">Другое</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="message" class="block text-gray-700 font-medium mb-2">Сообщение</label>
+                                    <textarea id="message" rows="5" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full">
+                                    Отправить сообщение
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Map -->
+                        <div>
+                            <h2 class="text-3xl font-bold mb-6">Мы на карте</h2>
+                            <p class="text-gray-600 mb-8">Приезжайте к нам в офис по адресу: ул. Примерная, 123, Грозный, Чечня</p>
+                            
+                            <div class="map-container bg-gray-300 flex items-center justify-center">
+                                <div class="text-center p-6">
+                                    <i class="fas fa-map-marked-alt text-5xl text-gray-500 mb-4"></i>
+                                    <p class="text-gray-600">Интерактивная карта будет здесь</p>
+                                    <p class="text-sm text-gray-500 mt-2">ул. Примерная, 123, Грозный, Чечня</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 bg-white p-6 rounded-lg shadow-sm">
+                                <h3 class="text-xl font-semibold mb-4">Как добраться</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-bus text-blue-500 mt-1 mr-3"></i>
+                                        <span>Автобусы: 12, 24, 36, 45 до остановки "Центральный рынок"</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-subway text-blue-500 mt-1 mr-3"></i>
+                                        <span>Метро: Станция "Грозненская" (10 минут пешком)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-car text-blue-500 mt-1 mr-3"></i>
+                                        <span>Парковка: Бесплатная парковка перед зданием</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Preview -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Частые вопросы</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-2">Как выбрать подходящую дверь?</h3>
+                                <p class="text-gray-600">Наши консультанты помогут вам выбрать идеальную дверь based on ваших потребностей, стиля интерьера и бюджета.</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-2">Вы предоставляете услуги установки?</h3>
+                                <p class="text-gray-600">Да, мы предлагаем профессиональную установку дверей нашими опытными мастерами с гарантией на работы.</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Какие гарантии вы предоставляете?</h3>
+                                <p class="text-gray-600">Мы предоставляем гарантию до 5 лет на нашу продукцию в зависимости от категории товара.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-2">Сколько времени занимает доставка?</h3>
+                                <p class="text-gray-600">Доставка по Грозному осуществляется в течение 1-2 дней. В другие регионы Чечни - до 5 дней.</p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h3 class="text-xl font-semibold mb-2">Можно ли посмотреть товары вживую?</h3>
+                                <p class="text-gray-600">Да, у нас есть шоу-рум по адресу ул. Примерная, 123, где вы можете увидеть и оценить наши двери.</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Есть ли скидки при оптовом заказе?</h3>
+                                <p class="text-gray-600">Да, мы предоставляем специальные условия и скидки для оптовых покупателей и партнеров.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-12">
+                        <a href="/faq" class="inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg">
+                            Смотреть все вопросы
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    <script src="scripts.js"></script>
+</body>
+</html>

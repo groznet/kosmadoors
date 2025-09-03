@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квартира в ЖК "Солнечный" - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        /* Gallery styles */
+        .gallery-image {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-image:hover {
+            transform: scale(1.02);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false, activeImage: null, showModal: false }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>        
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-64">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Breadcrumb -->
+            <div class="bg-gray-100 py-4 px-4 md:px-8">
+                <div class="container mx-auto">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="/" class="text-gray-500 hover:text-blue-800">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <a href="/projects.html" class="text-gray-500 hover:text-blue-800">Наши проекты</a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <span class="text-gray-700">Квартира в ЖК "Солнечный"</span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Project Hero Section -->
+            <section class="py-8 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full mb-3">
+                                Входные двери
+                            </span>
+                            <h1 class="text-3xl md:text-4xl font-bold mb-2">Квартира в ЖК "Солнечный"</h1>
+                            <p class="text-gray-600">Грозный, ул. Солнечная, 24</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                <i class="far fa-calendar-alt mr-1"></i> Октябрь 2023
+                            </span>
+                            <a href="#" class="text-blue-800 hover:text-blue-600">
+                                <i class="fas fa-share-alt text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Gallery -->
+            <section class="px-4 md:px-8 pb-12 bg-white">
+                <div class="container mx-auto">
+                    <!-- Main image -->
+                    <div class="mb-6 rounded-lg overflow-hidden shadow-md">
+                        <div class="h-96 bg-gray-300 flex items-center justify-center relative">
+                            <i class="fas fa-door-closed text-6xl text-gray-500"></i>
+                            <button @click="activeImage = 0; showModal = true" class="absolute bottom-4 right-4 bg-white text-blue-800 p-3 rounded-full shadow-md hover:bg-blue-800 hover:text-white transition-colors">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Thumbnails -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="gallery-image h-32 bg-gray-300 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer relative" @click="activeImage = 0; showModal = true">
+                            <i class="fas fa-door-closed text-3xl text-gray-500"></i>
+                        </div>
+                        <div class="gallery-image h-32 bg-gray-400 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer relative" @click="activeImage = 1; showModal = true">
+                            <i class="fas fa-home text-3xl text-gray-500"></i>
+                        </div>
+                        <div class="gallery-image h-32 bg-gray-500 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer relative" @click="activeImage = 2; showModal = true">
+                            <i class="fas fa-image text-3xl text-gray-500"></i>
+                        </div>
+                        <div class="gallery-image h-32 bg-gray-600 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer relative" @click="activeImage = 3; showModal = true">
+                            <i class="fas fa-camera text-3xl text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Details -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        <!-- Main content -->
+                        <div class="lg:col-span-2">
+                            <h2 class="text-2xl font-bold mb-6">О проекте</h2>
+                            <div class="prose max-w-none">
+                                <p class="text-gray-700 mb-4">В октябре 2023 года наша команда выполнила установку входной двери серии "Комфорт 6.0" в новой квартире жилого комплекса "Солнечный" в Грозном.</p>
+                                
+                                <p class="text-gray-700 mb-4">Клиент обратился к нам с запросом на установку надежной и стильной входной двери, которая обеспечит безопасность и будет гармонично сочетаться с интерьером новой квартиры.</p>
+                                
+                                <h3 class="text-xl font-semibold mt-8 mb-4">Особенности работы</h3>
+                                <ul class="list-disc pl-5 text-gray-700 mb-6">
+                                    <li class="mb-2">Дверь серии "Комфорт 6.0" с усиленной конструкцией и современным дизайном</li>
+                                    <li class="mb-2">Дополнительная шумоизоляция для комфортного проживания</li>
+                                    <li class="mb-2">Установка дополнительной защиты от взлома</li>
+                                    <li class="mb-2">Использование качественной фурнитуры от проверенных производителей</li>
+                                    <li>Гармоничное сочетание с интерьером подъезда и квартиры</li>
+                                </ul>
+                                
+                                <h3 class="text-xl font-semibold mt-8 mb-4">Результат</h3>
+                                <p class="text-gray-700 mb-4">После завершения работ клиент остался доволен не только качеством самой двери, но и профессиональной установкой. Дверь обеспечивает отличную звукоизоляцию и чувство безопасности.</p>
+                                
+                                <p class="text-gray-700">Мы благодарим клиента за доверие и рады, что смогли внести вклад в комфорт и уют его нового дома.</p>
+                            </div>
+                            
+                            <!-- Client Testimonial -->
+                            <div class="bg-white p-6 rounded-lg shadow-md mt-12">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-user text-blue-800 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold">Ахмед Кадыров</h4>
+                                        <p class="text-gray-600">Владелец квартиры</p>
+                                    </div>
+                                </div>
+                                <div class="text-yellow-400 mb-3">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 italic">"Очень доволен работой компании Гарант. Дверь установили быстро и аккуратно, не повредили отделку в подъезде. Сама дверь отличного качества, хорошая шумоизоляция. Соседи даже спрашивали, где я такую приобрел. Рекомендую!"</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Sidebar with project info -->
+                        <div>
+                            <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+                                <h3 class="text-xl font-semibold mb-4">Детали проекта</h3>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Категория</h4>
+                                        <p class="text-blue-800">Входные двери</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Продукция</h4>
+                                        <p>Серия "Комфорт 6.0"</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Локация</h4>
+                                        <p>Грозный, ул. Солнечная, 24</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Площадь</h4>
+                                        <p>Квартира 85 м²</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Сроки</h4>
+                                        <p>3 дня</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-medium text-gray-700">Дата завершения</h4>
+                                        <p>15 октября 2023</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-8 pt-6 border-t border-gray-200">
+                                    <h3 class="text-xl font-semibold mb-4">Использованные продукты</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-check text-green-500 mr-2"></i>
+                                            <span>Дверь входная "Комфорт 6.0"</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-check text-green-500 mr-2"></i>
+                                            <span>Замок сувального типа</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-check text-green-500 mr-2"></i>
+                                            <span>Доводчик дверной</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-check text-green-500 mr-2"></i>
+                                            <span>Дополнительная шумоизоляция</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-check text-green-500 mr-2"></i>
+                                            <span>Противовзломная фурнитура</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <a href="/contact" class="mt-8 block w-full bg-blue-800 hover:bg-blue-700 text-white text-center font-bold py-3 px-6 rounded-lg transition-colors">
+                                    Заказать similar проект
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Projects -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Похожие проекты</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Project 1 -->
+                        <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-56 bg-gray-300 flex items-center justify-center relative">
+                                <i class="fas fa-home text-5xl text-gray-500"></i>
+                                <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Входные двери</span>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-semibold mb-2">Частный дом в с. Пригородное</h4>
+                                <p class="text-gray-600 mb-4">Установка усиленной входной двери с терморазрывом</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-blue-800 font-medium">с. Пригородное</span>
+                                    <a href="#" class="text-blue-800 hover:underline">Подробнее →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 2 -->
+                        <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-56 bg-gray-400 flex items-center justify-center relative">
+                                <i class="fas fa-building text-5xl text-gray-500"></i>
+                                <span class="absolute top-4 left-4 bg-blue-800 text-white text-sm px-3 py-1 rounded">Входные двери</span>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-semibold mb-2">Офисное здание на пр. Путина</h4>
+                                <p class="text-gray-600 mb-4">Установка 12 входных дверей в бизнес-центре</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-blue-800 font-medium">Грозный</span>
+                                    <a href="#" class="text-blue-800 hover:underline">Подробнее →</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 3 -->
+                        <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-56 bg-gray-500 flex items-center justify-center relative">
+                                <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                                <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-semibold mb-2">Квартира в центре Грозного</h4>
+                                <p class="text-gray-600 mb-4">Установка 6 межкомнатных дверей коллекции "Smart X"</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-blue-800 font-medium">Грозный</span>
+                                    <a href="#" class="text-blue-800 hover:underline">Подробнее →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-12">
+                        <a href="/projects" class="inline-block bg-blue-800 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg">
+                            Смотреть все проекты
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Хотите такой же качественный проект?</h2>
+                    <p class="text-xl mb-8">Наши специалисты разработают для вас индивидуальное решение и реализуют его с безупречным качеством</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="/contact" class="bg-white text-blue-800 font-bold py-3 px-8 rounded hover:bg-gray-100 transition-colors">
+                            Обсудить проект
+                        </a>
+                        <a href="/catalog" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded hover:bg-white hover:text-blue-800 transition-colors">
+                            Смотреть каталог
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Image Modal -->
+    <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4 modal" x-transition>
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-full overflow-hidden">
+            <div class="relative">
+                <button @click="showModal = false" class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 z-10">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="h-96 bg-gray-300 flex items-center justify-center">
+                    <template x-if="activeImage === 0">
+                        <i class="fas fa-door-closed text-6xl text-gray-500"></i>
+                    </template>
+                    <template x-if="activeImage === 1">
+                        <i class="fas fa-home text-6xl text-gray-500"></i>
+                    </template>
+                    <template x-if="activeImage === 2">
+                        <i class="fas fa-image text-6xl text-gray-500"></i>
+                    </template>
+                    <template x-if="activeImage === 3">
+                        <i class="fas fa-camera text-6xl text-gray-500"></i>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>    
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    
+    
+    <script src="scripts.js"></script>
+
+</body>
+</html>
