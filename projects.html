@@ -10,6 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <style>
         /* Custom styles for nested menus */
         .submenu {
@@ -63,10 +64,15 @@
             </div>
 
             <!-- Hero Section -->
-            <section class="hero-section text-white py-16 px-4 md:px-8">
-                <div class="container mx-auto text-center">
+            <section class="hero-section text-white py-16 px-4 md:px-8 bg-center bg-cover relative" style="background-image: url('assets/images/hero-bg.jpg');">
+                <!-- Dark overlay -->
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div class="container mx-auto relative z-10 text-center">
                     <h1 class="text-4xl md:text-5xl font-bold mb-4">Наши проекты</h1>
-                    <p class="text-xl mx-auto">Реализованные проекты установки дверей в квартирах, домах и офисах по всей Чечне</p>
+                    <p class="text-xl max-w-3xl mx-auto">
+                        Реализованные проекты установки дверей в квартирах, домах и офисах по всей Чечне
+                    </p>
                 </div>
             </section>
 
