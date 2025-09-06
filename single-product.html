@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дверь входная Комфорт 6.0 - Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Product gallery */
+        .gallery-main {
+            height: 400px;
+            transition: all 0.3s ease;
+        }
+        .gallery-thumbs {
+            height: 100px;
+        }
+        .gallery-thumb {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-thumb:hover, .gallery-thumb.active {
+            border-color: #1e40af;
+        }
+        /* Color options */
+        .color-option {
+            transition: all 0.2s ease;
+        }
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        .color-option.active {
+            outline: 2px solid #1e40af;
+            outline-offset: 2px;
+        }
+        /* Tab content */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Review stars */
+        .review-stars {
+            color: #fbbf24;
+        }
+        /* Door preview based on color */
+        .door-preview {
+            transition: all 0.5s ease;
+        }
+        .door-white {
+            background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .door-gray {
+            background: linear-gradient(to bottom, #9ca3af, #6b7280);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .door-brown {
+            background: linear-gradient(to bottom, #a16207, #78350f);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .door-walnut {
+            background: linear-gradient(45deg, #78350f 0%, #92400e 25%, #b45309 50%, #d97706 75%, #f59e0b 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .door-black {
+            background: linear-gradient(to bottom, #4b5563, #1f2937);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+        /* Door handle styles */
+        .door-handle {
+            transition: all 0.3s ease;
+        }
+        .door-white .door-handle {
+            color: #c0c0c0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .door-gray .door-handle {
+            color: #d1d5db;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .door-brown .door-handle {
+            color: #d97706;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .door-walnut .door-handle {
+            color: #f59e0b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .door-black .door-handle {
+            color: #fbbf24;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ 
+    mobileMenuOpen: false, 
+    sidebarOpen: false,
+    activeTab: 'description',
+    activeImage: 0,
+    activeColor: 'white',
+    quantity: 1,
+    product: {
+        id: 1,
+        name: 'Дверь входная Комфорт 6.0',
+        category: 'entrance',
+        collection: 'comfort',
+        price: 25990,
+        oldPrice: 28990,
+        material: 'Сталь',
+        rating: 4.8,
+        reviews: 42,
+        images: ['door-closed', 'door-closed-2', 'door-closed-3', 'door-closed-4'],
+        featured: true,
+        discount: true,
+        inStock: true,
+        sku: 'DVC-6001',
+        warranty: '5 лет',
+        dimensions: '860×2050×70 мм',
+        weight: '45 кг',
+        lockType: 'Цилиндровый + сувальдный',
+        insulation: 'Минеральная вата',
+        seals: '2 контура уплотнения',
+        protection: 'Противосъёмные штыри, усиленные петли',
+        coating: 'Порошково-полимерное покрытие',
+        design: 'Современный, лаконичный',
+        colors: [
+            { id: 'white', name: 'Белый', value: '#f8fafc', price: 0 },
+            { id: 'gray', name: 'Серый графит', value: '#4b5563', price: 1500 },
+            { id: 'brown', name: 'Коричневый', value: '#78350f', price: 2000 },
+            { id: 'walnut', name: 'Орех', value: '#92400e', price: 2500 },
+            { id: 'black', name: 'Черный матовый', value: '#1f2937', price: 3000 }
+        ]
+    },
+    get selectedColor() {
+        return this.product.colors.find(color => color.id === this.activeColor);
+    },
+    get currentPrice() {
+        const basePrice = this.product.price;
+        const colorPrice = this.selectedColor.price;
+        return basePrice + colorPrice;
+    },
+    get formattedPrice() {
+        return this.currentPrice.toLocaleString('ru-RU');
+    },
+    get formattedOldPrice() {
+        return this.product.oldPrice ? (this.product.oldPrice + this.selectedColor.price).toLocaleString('ru-RU') : null;
+    }
+ }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>        
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-64">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Breadcrumb -->
+            <div class="bg-gray-100 py-4 px-4 md:px-8">
+                <div class="container mx-auto">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="/" class="text-gray-500 hover:text-blue-800">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <a href="/catalog.html" class="text-gray-500 hover:text-blue-800">Каталог</a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <a href="/catalog.html" class="text-gray-500 hover:text-blue-800">Входные двери</a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <span class="text-gray-700">Дверь входная Комфорт 6.0</span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Product Section -->
+            <section class="py-8 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <div class="flex flex-col lg:flex-row gap-12">
+                        <!-- Product Gallery -->
+                        <div class="lg:w-1/2">
+                            <!-- Dynamic Door Preview -->
+                            <div class="gallery-main rounded-lg mb-4 flex items-center justify-center door-preview" :class="'door-' + activeColor">
+                                <div class="relative w-64 h-96 bg-opacity-90 rounded-lg flex items-center justify-center">
+                                    <!-- Door panel -->
+                                    <div class="absolute inset-4 bg-opacity-80 rounded" :class="{'bg-white': activeColor === 'white', 'bg-gray-500': activeColor === 'gray', 'bg-amber-900': activeColor === 'brown', 'bg-amber-800': activeColor === 'walnut', 'bg-gray-800': activeColor === 'black'}"></div>
+                                    
+                                    <!-- Door frame -->
+                                    <div class="absolute inset-0 border-8" :class="{'border-gray-300': activeColor === 'white', 'border-gray-600': activeColor === 'gray', 'border-amber-800': activeColor === 'brown', 'border-amber-700': activeColor === 'walnut', 'border-gray-900': activeColor === 'black'}"></div>
+                                    
+                                    <!-- Door handle -->
+                                    <div class="door-handle absolute right-6" :class="{'text-gray-400': activeColor === 'white', 'text-gray-300': activeColor === 'gray', 'text-amber-600': activeColor === 'brown', 'text-amber-500': activeColor === 'walnut', 'text-yellow-600': activeColor === 'black'}">
+                                        <i class="fas fa-door-closed text-5xl"></i>
+                                    </div>
+                                    
+                                    <!-- Window (optional) -->
+                                    <div class="absolute left-6 top-12 w-16 h-24 rounded bg-blue-100 bg-opacity-20 border" :class="{'border-gray-200': activeColor === 'white', 'border-gray-400': activeColor === 'gray', 'border-amber-700': activeColor === 'brown', 'border-amber-600': activeColor === 'walnut', 'border-gray-700': activeColor === 'black'}"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Color Options -->
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-3">Цвет:</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <template x-for="color in product.colors" :key="color.id">
+                                        <div class="flex flex-col items-center">
+                                            <button 
+                                                @click="activeColor = color.id" 
+                                                class="color-option w-12 h-12 rounded-full border-2 border-gray-200 shadow-sm" 
+                                                :class="{ 'active': activeColor === color.id }"
+                                                :style="`background-color: ${color.value}`"
+                                                :title="color.name"
+                                            ></button>
+                                            <span class="text-xs mt-1 text-gray-600" x-text="color.name"></span>
+                                            <span class="text-xs font-medium" x-show="color.price > 0" x-text="'+' + color.price.toLocaleString('ru-RU') + ' ₽'"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="mt-2 text-sm text-gray-600">
+                                    Выбран: <span class="font-medium" x-text="selectedColor.name"></span>
+                                    <span x-show="selectedColor.price > 0" x-text="'(доплата ' + selectedColor.price.toLocaleString('ru-RU') + ' ₽)'"></span>
+                                </div>
+                            </div>
+
+                            <!-- Thumbnails -->
+                            <div class="grid grid-cols-4 gap-4">
+                                <div class="gallery-thumb bg-gray-200 rounded flex items-center justify-center cursor-pointer gallery-thumb" 
+                                     :class="{ 'active': activeImage === 0 }"
+                                     @click="activeImage = 0">
+                                    <i class="fas fa-door-closed text-xl text-gray-500"></i>
+                                </div>
+                                <div class="gallery-thumb bg-gray-300 rounded flex items-center justify-center cursor-pointer" 
+                                     :class="{ 'active': activeImage === 1 }"
+                                     @click="activeImage = 1">
+                                    <i class="fas fa-door-open text-xl text-gray-500"></i>
+                                </div>
+                                <div class="gallery-thumb bg-gray-400 rounded flex items-center justify-center cursor-pointer" 
+                                     :class="{ 'active': activeImage === 2 }"
+                                     @click="activeImage = 2">
+                                    <i class="fas fa-lock text-xl text-gray-500"></i>
+                                </div>
+                                <div class="gallery-thumb bg-gray-500 rounded flex items-center justify-center cursor-pointer" 
+                                     :class="{ 'active': activeImage === 3 }"
+                                     @click="activeImage = 3">
+                                    <i class="fas fa-home text-xl text-gray-500"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Info -->
+                        <div class="lg:w-1/2">
+                            <div class="mb-4">
+                                <span class="text-sm text-gray-500">Входные двери / Серия Комфорт</span>
+                                <h1 class="text-3xl font-bold mt-2" x-text="product.name"></h1>
+                                <div class="flex items-center mt-4">
+                                    <div class="review-stars mr-2">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm" x-text="product.rating + ' (' + product.reviews + ' отзывов)'"></span>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-b border-gray-200 py-6 my-6">
+                                <div class="flex items-center">
+                                    <span class="text-3xl font-bold text-blue-800" x-text="formattedPrice + ' ₽'"></span>
+                                    <template x-if="product.oldPrice">
+                                        <span class="text-xl text-gray-500 line-through ml-4" x-text="formattedOldPrice + ' ₽'"></span>
+                                    </template>
+                                    <template x-if="product.discount">
+                                        <span class="bg-red-600 text-white text-sm font-semibold px-2 py-1 rounded ml-4">-10%</span>
+                                    </template>
+                                </div>
+                                <template x-if="product.inStock">
+                                    <div class="text-green-600 font-medium mt-2">
+                                        <i class="fas fa-check-circle mr-2"></i>В наличии
+                                    </div>
+                                </template>
+                                <template x-if="!product.inStock">
+                                    <div class="text-red-600 font-medium mt-2">
+                                        <i class="fas fa-times-circle mr-2"></i>Нет в наличии
+                                    </div>
+                                </template>
+                            </div>
+
+                            <div class="mb-8">
+                                <h3 class="text-lg font-semibold mb-3">Количество:</h3>
+                                <div class="flex items-center">
+                                    <button @click="quantity > 1 ? quantity-- : quantity = 1" class="w-10 h-10 bg-gray-200 rounded-l flex items-center justify-center">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" x-model="quantity" class="w-16 h-10 border-t border-b border-gray-300 text-center">
+                                    <button @click="quantity++" class="w-10 h-10 bg-gray-200 rounded-r flex items-center justify-center">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                                <button class="bg-blue-800 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
+                                </button>
+                                <button class="border border-gray-300 hover:bg-gray-100 text-gray-800 font-semibold py-3 px-8 rounded-lg flex items-center justify-center">
+                                    <i class="far fa-heart mr-2"></i>В избранное
+                                </button>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-600">Артикул:</span>
+                                    <span class="font-medium" x-text="product.sku"></span>
+                                </div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-gray-600">Гарантия:</span>
+                                    <span class="font-medium" x-text="product.warranty"></span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">Доставка:</span>
+                                    <span class="font-medium">По Грозному - бесплатно</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Tabs -->
+            <section class="py-8 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <!-- Tab Navigation -->
+                        <div class="border-b border-gray-200">
+                            <nav class="flex flex-col sm:flex-row">
+                                <button 
+                                    @click="activeTab = 'description'" 
+                                    :class="{ 'text-blue-800 border-blue-800': activeTab === 'description', 'text-gray-600 border-transparent': activeTab !== 'description' }"
+                                    class="py-4 px-6 border-b-2 font-medium text-sm">
+                                    Описание
+                                </button>
+                                <button 
+                                    @click="activeTab = 'specifications'" 
+                                    :class="{ 'text-blue-800 border-blue-800': activeTab === 'specifications', 'text-gray-600 border-transparent': activeTab !== 'specifications' }"
+                                    class="py-4 px-6 border-b-2 font-medium text-sm">
+                                    Характеристики
+                                </button>
+                                <button 
+                                    @click="activeTab = 'reviews'" 
+                                    :class="{ 'text-blue-800 border-blue-800': activeTab === 'reviews', 'text-gray-600 border-transparent': activeTab !== 'reviews' }"
+                                    class="py-4 px-6 border-b-2 font-medium text-sm">
+                                    Отзывы (42)
+                                </button>
+                                <button 
+                                    @click="activeTab = 'delivery'" 
+                                    :class="{ 'text-blue-800 border-blue-800': activeTab === 'delivery', 'text-gray-600 border-transparent': activeTab !== 'delivery' }"
+                                    class="py-4 px-6 border-b-2 font-medium text-sm">
+                                    Доставка и установка
+                                </button>
+                            </nav>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div class="p-6">
+                            <!-- Description Tab -->
+                            <div x-show="activeTab === 'description'" class="tab-content active">
+                                <h2 class="text-2xl font-bold mb-4">Дверь входная Комфорт 6.0</h2>
+                                <p class="text-gray-700 mb-4">Входная дверь "Комфорт 6.0" — это идеальное сочетание надежности, функциональности и современного дизайна. Модель разработана для квартир в многоквартирных домах и обеспечивает максимальную защиту от взлома, отличную тепло- и звукоизоляцию.</p>
+                                
+                                <h3 class="text-xl font-semibold mt-6 mb-3">Особенности модели:</h3>
+                                <ul class="list-disc pl-5 text-gray-700 mb-6">
+                                    <li class="mb-2">Усиленная стальная конструкция толщиной 1.8 мм</li>
+                                    <li class="mb-2">Двухконтурное уплотнение для improved тепло- и звукоизоляции</li>
+                                    <li class="mb-2">Наполнитель из минеральной ваты высокой плотности</li>
+                                    <li class="mb-2">Два замка разных типов (цилиндровый и сувальдный) 4 класса взломостойкости</li>
+                                    <li class="mb-2">Противосъёмные штыри по всему периметру дверного полотна</li>
+                                    <li class="mb-2">Усиленные петли с опорными подшипниками</li>
+                                    <li>Современный дизайн, подходящий для любого интерьера</li>
+                                </ul>
+
+                                <h3 class="text-xl font-semibold mt-6 mb-3">Преимущества:</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                    <div class="flex items-start">
+                                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                            <i class="fas fa-shield-alt text-blue-800"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Безопасность</h4>
+                                            <p class="text-gray-600">Высокий уровень защиты от взлома благодаря усиленной конструкции и reliable замкам</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                            <i class="fas fa-thermometer-half text-blue-800"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Теплоизоляция</h4>
+                                            <p class="text-gray-600">Сохраняет тепло в квартире и предотвращает образование сквозняков</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                            <i class="fas fa-volume-mute text-blue-800"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Шумоизоляция</h4>
+                                            <p class="text-gray-600">Эффективно снижает уровень шума из подъезда и с улицы</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                            <i class="fas fa-palette text-blue-800"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Дизайн</h4>
+                                            <p class="text-gray-600">Современный внешний вид, который гармонично впишется в любой интерьер</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Specifications Tab -->
+                            <div x-show="activeTab === 'specifications'" class="tab-content">
+                                <h2 class="text-2xl font-bold mb-6">Технические характеристики</h2>
+                                <div class="overflow-hidden border border-gray-200 rounded-lg">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <tbody class="bg-white divide-y divide-gray-200">
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Тип двери</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Входная квартирная</td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Серия</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Комфорт 6.0</td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Материал</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.material"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Цвет</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="selectedColor.name"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Габариты (В×Ш×Т)</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.dimensions"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Вес</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.weight"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Тип замков</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.lockType"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Утепление</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.insulation"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Уплотнители</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.seals"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Защита</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.protection"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Покрытие</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.coating"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Дизайн</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.design"></td>
+                                            </tr>
+                                            <tr class="spec-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Гарантия</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="product.warranty"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Reviews Tab -->
+                            <div x-show="activeTab === 'reviews'" class="tab-content">
+                                <h2 class="text-2xl font-bold mb-6">Отзывы о товаре</h2>
+                                
+                                <div class="flex flex-col md:flex-row items-start gap-8 mb-12">
+                                    <div class="bg-gray-50 p-6 rounded-lg md:w-1/3">
+                                        <div class="text-center mb-4">
+                                            <span class="text-5xl font-bold text-blue-800" x-text="product.rating"></span>
+                                            <span class="text-gray-500">/5</span>
+                                        </div>
+                                        <div class="flex items-center justify-center mb-2">
+                                            <div class="review-stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-center text-gray-600" x-text="product.reviews + ' отзывов'"></p>
+                                        
+                                        <div class="mt-6 space-y-2">
+                                            <div class="flex items-center">
+                                                <span class="text-sm text-gray-600 w-16">5 звезд</span>
+                                                <div class="flex-1 h-2 bg-gray-200 rounded-full mx-2">
+                                                    <div class="h-2 bg-yellow-400 rounded-full" style="width: 75%"></div>
+                                                </div>
+                                                <span class="text-sm text-gray-600 w-8">75%</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-sm text-gray-600 w-16">4 звезды</span>
+                                                <div class="flex-1 h-2 bg-gray-200 rounded-full mx-2">
+                                                    <div class="h-2 bg-yellow-400 rounded-full" style="width: 15%"></div>
+                                                </div>
+                                                <span class="text-sm text-gray-600 w-8">15%</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-sm text-gray-600 w-16">3 звезды</span>
+                                                <div class="flex-1 h-2 bg-gray-200 rounded-full mx-2">
+                                                    <div class="h-2 bg-yellow-400 rounded-full" style="width: 7%"></div>
+                                                </div>
+                                                <span class="text-sm text-gray-600 w-8">7%</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-sm text-gray-600 w-16">2 звезды</span>
+                                                <div class="flex-1 h-2 bg-gray-200 rounded-full mx-2">
+                                                    <div class="h-2 bg-yellow-400 rounded-full" style="width: 2%"></div>
+                                                </div>
+                                                <span class="text-sm text-gray-600 w-8">2%</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="text-sm text-gray-600 w-16">1 звезда</span>
+                                                <div class="flex-1 h-2 bg-gray-200 rounded-full mx-2">
+                                                    <div class="h-2 bg-yellow-400 rounded-full" style="width: 1%"></div>
+                                                </div>
+                                                <span class="text-sm text-gray-600 w-8">1%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="md:w-2/3">
+                                        <div class="bg-white border border-gray-200 rounded-lg p-6">
+                                            <h3 class="text-lg font-semibold mb-4">Оставить отзыв</h3>
+                                            <form class="space-y-4">
+                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+                                                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                                        <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Оценка</label>
+                                                    <div class="flex space-x-1">
+                                                        <i class="far fa-star text-2xl text-yellow-400 cursor-pointer"></i>
+                                                        <i class="far fa-star text-2xl text-yellow-400 cursor-pointer"></i>
+                                                        <i class="far fa-star text-2xl text-yellow-400 cursor-pointer"></i>
+                                                        <i class="far fa-star text-2xl text-yellow-400 cursor-pointer"></i>
+                                                        <i class="far fa-star text-2xl text-yellow-400 cursor-pointer"></i>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Заголовок отзыва</label>
+                                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700 mb-1">Текст отзыва</label>
+                                                    <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                                                </div>
+                                                <button type="submit" class="bg-blue-800 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">
+                                                    Отправить отзыв
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-6">
+                                    <!-- Review 1 -->
+                                    <div class="border-b border-gray-200 pb-6">
+                                        <div class="flex items-center mb-3">
+                                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-gray-500"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold">Анна Смирнова</h4>
+                                                <div class="flex items-center">
+                                                    <div class="review-stars mr-2">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">2 недели назад</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="font-medium mb-2">Отличная дверь, всем рекомендую!</h5>
+                                        <p class="text-gray-700">Установили эту дверь месяц назад. Очень довольны - качество на высоте, никаких сквозняков, посторонние шумы практически не слышны. Монтажники работали аккуратно, все сделали быстро и качественно.</p>
+                                    </div>
+                                    
+                                    <!-- Review 2 -->
+                                    <div class="border-b border-gray-200 pb-6">
+                                        <div class="flex items-center mb-3">
+                                            <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center mr-4">
+                                                <i class="fas fa-user text-gray-500"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-semibold">Дмитрий Иванов</h4>
+                                                <div class="flex items-center">
+                                                    <div class="review-stars mr-2">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500">3 недели назад</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="font-medium mb-2">Хорошее качество за свои деньги</h5>
+                                        <p class="text-gray-700">Дверь solidная, тяжелая. Установил сам с помощью друга. Замки работают отлично, никаких нареканий. Из минусов - инструкция по установке could быть подробнее. В целом рекомендую.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delivery Tab -->
+                            <div x-show="activeTab === 'delivery'" class="tab-content">
+                                <h2 class="text-2xl font-bold mb-6">Доставка и установка</h2>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-4">Доставка</h3>
+                                        <div class="space-y-4">
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-truck text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">По Грозному</h4>
+                                                    <p class="text-gray-600">Бесплатная доставка в течение 1-2 дней</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-map-marker-alt text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">По Чечне</h4>
+                                                    <p class="text-gray-600">Доставка за 2-3 дня, стоимость зависит от location</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-shipping-fast text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">В другие регионы</h4>
+                                                    <p class="text-gray-600">Доставка транспортными компаниями, сроки и стоимость рассчитываются individually</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h3 class="text-xl font-semibold mb-4">Установка</h3>
+                                        <div class="space-y-4">
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-tools text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">Профессиональный монтаж</h4>
+                                                    <p class="text-gray-600">Наши специалисты установят дверь быстро и качественно</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-clock text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">Сроки установки</h4>
+                                                    <p class="text-gray-600">Обычно установка занимает 2-4 часа в зависимости от сложности</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <div class="bg-blue-100 w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                                    <i class="fas fa-award text-blue-800"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-semibold">Гарантия на работу</h4>
+                                                    <p class="text-gray-600">Предоставляем гарантию 1 год на все монтажные работы</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-6 rounded-lg">
+                                    <h3 class="text-lg font-semibold mb-3">Важно знать перед установкой</h3>
+                                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                        <li>Перед установкой необходимо обеспечить свободный доступ к дверному проему</li>
+                                        <li>Старая дверь и коробка будут демонтированы и вывезены</li>
+                                        <li>После установки проводится обязательная проверка работы замков и доводчика</li>
+                                        <li>Монтажники предоставят все необходимые документы и гарантийные талоны</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Related Products -->
+            <section class="py-12 px-4 md:px-8 bg-white">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Смотрите также</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Product 1 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                            <div class="h-56 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-door-closed text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-gray-500">Входные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Дверь входная Эталон</h3>
+                                <div class="flex items-center mb-3">
+                                    <div class="review-stars mr-1">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-500 ml-1">(27)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xl font-bold text-blue-800">32 990 ₽</span>
+                                    <button class="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                            <div class="h-56 bg-gray-400 flex items-center justify-center">
+                                <i class="fas fa-door-closed text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-gray-500">Входные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Дверь входная Меркурий</h3>
+                                <div class="flex items-center mb-3">
+                                    <div class="review-stars mr-1">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-500 ml-1">(23)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xl font-bold text-blue-800">18 990 ₽</span>
+                                    <span class="text-sm text-gray-500 line-through">21 990 ₽</span>
+                                    <button class="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                            <div class="h-56 bg-gray-500 flex items-center justify-center">
+                                <i class="fas fa-door-open text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-sm text-gray-500">Межкомнатные двери</span>
+                                <h3 class="text-lg font-semibold my-2">Дверь межкомнатная Smart X</h3>
+                                <div class="flex items-center mb-3">
+                                    <div class="review-stars mr-1">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-500 ml-1">(38)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xl font-bold text-blue-800">15 490 ₽</span>
+                                    <button class="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Остались вопросы?</h2>
+                    <p class="text-xl mb-8">Наши специалисты помогут вам с выбором и ответят на все вопросы</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="/contact.html" class="bg-white text-blue-800 font-bold py-3 px-8 rounded hover:bg-gray-100 transition-colors">
+                            Получить консультацию
+                        </a>
+                        <a href="tel:+78001234567" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded hover:bg-white hover:text-blue-800 transition-colors">
+                            Позвонить нам
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>    
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    
+    <script src="/scripts.js"></script>
+    
+</body>
+</html>
