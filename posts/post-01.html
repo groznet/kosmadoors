@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как выбрать входную дверь для квартиры - Блог Гарант | Двери для дома и офиса</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for nested menus */
+        .submenu {
+            transition: all 0.3s ease;
+        }
+        /* Hero section with background image */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23343e4a"/><path d="M0 0L100 100" stroke="%23455263" stroke-width="2"/><path d="M100 0L0 100" stroke="%23455263" stroke-width="2"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Content styles */
+        .post-content {
+            line-height: 1.7;
+        }
+        .post-content h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #1e40af;
+        }
+        .post-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #374151;
+        }
+        .post-content p {
+            margin-bottom: 1.25rem;
+            color: #4b5563;
+        }
+        .post-content ul, .post-content ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.625rem;
+        }
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #1e40af;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #6b7280;
+        }
+        /* Author box */
+        .author-box {
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+        /* Related posts */
+        .related-post {
+            transition: transform 0.3s ease;
+        }
+        .related-post:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false, sidebarOpen: false }">
+    <!-- Header -->
+    <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside id="sidebar-wrapper" class="bg-white shadow-md w-64 fixed h-full z-40 lg:z-auto lg:static transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" 
+                :class="{ 'translate-x-0': sidebarOpen }"
+                x-show="true" 
+                x-transition>
+        </aside>        
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Mobile sidebar toggle button -->
+            <div class="lg:hidden bg-white p-2 border-b flex justify-between items-center">
+                <button @click="sidebarOpen = true" class="text-gray-700 flex items-center">
+                    <i class="fas fa-bars mr-2"></i> Категории
+                </button>
+                <div class="flex items-center">
+                    <button class="p-2 text-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Breadcrumb -->
+            <div class="bg-gray-100 py-4 px-4 md:px-8">
+                <div class="container mx-auto">
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="/" class="text-gray-500 hover:text-blue-800">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <a href="/blog.html" class="text-gray-500 hover:text-blue-800">Блог</a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <a href="/blog.html" class="text-gray-500 hover:text-blue-800">Советы</a>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400">/</span>
+                                <span class="text-gray-700">Как выбрать входную дверь для квартиры</span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <article class="py-8 px-4 md:px-8 bg-white">
+                <div class="container mx-auto max-w-4xl">
+                    <header class="mb-8">
+                        <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full mb-4">
+                            Советы
+                        </span>
+                        <h1 class="text-3xl md:text-4xl font-bold mb-4">Как выбрать входную дверь для квартиры</h1>
+                        <div class="flex flex-wrap items-center text-gray-500 text-sm mb-6">
+                            <span class="flex items-center mr-6 mb-2">
+                                <i class="far fa-calendar-alt mr-2"></i> 10 ноября 2023
+                            </span>
+                            <span class="flex items-center mr-6 mb-2">
+                                <i class="far fa-clock mr-2"></i> 5 мин чтения
+                            </span>
+                            <span class="flex items-center mr-6 mb-2">
+                                <i class="far fa-eye mr-2"></i> 1.2K просмотров
+                            </span>
+                            <span class="flex items-center mb-2">
+                                <i class="far fa-comment mr-2"></i> 8 комментариев
+                            </span>
+                        </div>
+                        <div class="h-96 bg-gray-300 rounded-lg flex items-center justify-center mb-6">
+                            <i class="fas fa-door-closed text-6xl text-gray-500"></i>
+                        </div>
+                    </header>
+
+                    <div class="post-content">
+                        <p class="lead">Выбор входной двери для квартиры — это важное решение, которое влияет на безопасность, комфорт и энергоэффективность вашего жилья. В этой статье мы расскажем, на что обратить внимание при выборе двери и как не ошибиться с выбором.</p>
+
+                        <h2>Ключевые критерии выбора входной двери</h2>
+                        <p>При выборе входной двери для квартиры следует учитывать несколько важных факторов, которые обеспечат вам надежность и долговечность конструкции.</p>
+
+                        <h3>1. Материал изготовления</h3>
+                        <p>Большинство современных входных дверей изготавливаются из стали — это прочный и надежный материал, обеспечивающий высокий уровень защиты. Толщина стального листа должна быть не менее 1.5-2 мм.</p>
+                        <p>Также обращайте внимание на антикоррозийную обработку и качество покраски, которые обеспечат долговечность двери.</p>
+
+                        <h3>2. Тепло- и звукоизоляция</h3>
+                        <p>Качественная входная дверь должна обеспечивать хорошую тепло- и звукоизоляцию. Обратите внимание на:</p>
+                        <ul>
+                            <li>Наличие уплотнителей по периметру дверного полотна</li>
+                            <li>Качество наполнителя (чаще всего используется минеральная вата или пенополиуретан)</li>
+                            <li>Количество контуров уплотнения (оптимально — 2-3 контура)</li>
+                        </ul>
+
+                        <h3>3. Замковая система</h3>
+                        <p>Безопасность квартиры во многом зависит от качества замковой системы. Рекомендуется:</p>
+                        <ul>
+                            <li>Устанавливать не менее двух замков разных типов (например, цилиндровый и сувальдный)</li>
+                            <li>Выбирать замки не ниже 4 класса взломостойкости</li>
+                            <li>Обращать внимание на наличие защиты от высверливания и выбивания</li>
+                        </ul>
+
+                        <blockquote>
+                            <p>"Не экономьте на замках — это ваша главная защита от взлома. Качественные замки окупятся спокойствием за безопасность вашего дома."</p>
+                        </blockquote>
+
+                        <h3>4. Дизайн и отделка</h3>
+                        <p>Входная дверь должна гармонично вписываться в интерьер подъезда и квартиры. Современные производители предлагают широкий выбор:</p>
+                        <ul>
+                            <li>Цветовых решений (от классических до ярких оттенков)</li>
+                            <li>Отделочных материалов (ПВХ-пленка, панели МДФ, шпон, экошпон)</li>
+                            <li>Вариантов оформления (филенки, стеклянные вставки, ковка)</li>
+                        </ul>
+
+                        <h3>5. Фурнитура и дополнительные опции</h3>
+                        <p>Обратите внимание на качество фурнитуры — петли, ручки, глазок. Дополнительные опции, которые повысят комфорт:</p>
+                        <ul>
+                            <li>Доводчик для плавного закрывания двери</li>
+                            <li>Теплый порог для улучшения теплоизоляции</li>
+                            <li>Антипаниковые механизмы для безопасности</li>
+                        </ul>
+
+                        <h2>Популярные бренды и серии</h2>
+                        <p>Среди нашего ассортимента особой популярностью пользуются следующие серии входных дверей:</p>
+
+                        <h3>Серия "Комфорт 6.0"</h3>
+                        <p>Идеальное соотношение цены и качества. Двери этой серии отличаются повышенной шумоизоляцией и современным дизайном.</p>
+
+                        <h3>Серия "Эталон"</h3>
+                        <p>Премиум-сегмент с усиленной конструкцией, дополнительной защитой от взлома и эксклюзивными вариантами отделки.</p>
+
+                        <h3>Серия "Меркурий"</h3>
+                        <p>Экономичный вариант без compromises в качестве. Подходит для тех, кто ищет надежную дверь по доступной цене.</p>
+
+                        <h2>Частые ошибки при выборе</h2>
+                        <p>Избегайте этих распространенных ошибок при выборе входной двери:</p>
+                        <ol>
+                            <li><strong>Экономия на качестве</strong> — дешевая дверь может оказаться ненадежной и потребовать замены уже через несколько лет.</li>
+                            <li><strong>Неверные замеры</strong> — неправильно снятые размеры приведут к проблемам с установкой.</li>
+                            <li><strong>Пренебрежение утеплением</strong> — недостаточная теплоизоляция приведет к потерям тепла и сквознякам.</li>
+                            <li><strong>Несоответствие дизайна</strong> — дверь должна гармонировать с интерьером подъезда и квартиры.</li>
+                        </ol>
+
+                        <h2>Заключение</h2>
+                        <p>Выбор входной двери для квартиры — это инвестиция в вашу безопасность и комфорт. Уделите время изучению характеристик, consultируйтесь со специалистами и выбирайте продукцию проверенных производителей. Правильно подобранная дверь прослужит вам долгие годы, обеспечивая надежную защиту и сохраняя тепло вашего дома.</p>
+
+                        <div class="flex items-center justify-between py-6 border-t border-b border-gray-200 mt-8">
+                            <div class="flex items-center">
+                                <span class="text-gray-700 mr-4">Поделиться:</span>
+                                <div class="flex space-x-2">
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center">
+                                        <i class="fab fa-telegram"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="flex items-center text-red-600 hover:text-red-700">
+                                    <i class="far fa-heart mr-2"></i> Добавить в избранное
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Author Box -->
+                    <div class="author-box mt-12">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center mr-6">
+                                <i class="fas fa-user text-gray-500 text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Александр Петров</h3>
+                                <p class="text-gray-600">Эксперт по дверным системам с 15-летним опытом</p>
+                                <p class="text-gray-500 text-sm mt-2">Специализируется на подборе и установке входных и межкомнатных дверей. Автор множества статей и руководств по выбору дверных систем.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="mt-12">
+                        <h2 class="text-2xl font-bold mb-6">Комментарии (8)</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Comment 1 -->
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-semibold">Мария Иванова</h4>
+                                            <span class="text-sm text-gray-500">2 дня назад</span>
+                                        </div>
+                                        <p class="text-gray-700">Очень полезная статья! Как раз выбираю новую дверь в квартиру. Скажите, а есть ли разница между отечественными и импортными замками?</p>
+                                        <button class="text-blue-800 text-sm font-medium mt-2">Ответить</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment 2 -->
+                            <div class="flex">
+                                <div class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-semibold">Сергей Козлов</h4>
+                                            <span class="text-sm text-gray-500">3 дня назад</span>
+                                        </div>
+                                        <p class="text-gray-700">Установил себе дверь из серии "Комфорт 6.0" полгода назад. Очень доволен - тихо, тепло и выглядит отлично. Советую!</p>
+                                        <button class="text-blue-800 text-sm font-medium mt-2">Ответить</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment 3 -->
+                            <div class="flex ml-16">
+                                <div class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-semibold">Александр Петров</h4>
+                                            <span class="text-sm text-gray-500">2 дня назад</span>
+                                        </div>
+                                        <p class="text-gray-700">Мария, спасибо за вопрос! Отечественные замки часто лучше адаптированы к нашим условиям, а импортные имеют более сложные механизмы. Главное - выбирать проверенных производителей с хорошей репутацией.</p>
+                                        <button class="text-blue-800 text-sm font-medium mt-2">Ответить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comment Form -->
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-4">Оставить комментарий</h3>
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+                                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="comment" class="block text-sm font-medium text-gray-700 mb-1">Комментарий</label>
+                                    <textarea id="comment" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                                </div>
+                                <button type="submit" class="bg-blue-800 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">
+                                    Отправить комментарий
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Related Posts -->
+            <section class="py-12 px-4 md:px-8 bg-gray-50">
+                <div class="container mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-12">Читайте также</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Related Post 1 -->
+                        <div class="related-post bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-48 bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-lock text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-sm text-green-600 font-semibold">Советы</span>
+                                <h3 class="text-xl font-semibold my-3">Как выбрать надежный замок для входной двери</h3>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span><i class="far fa-calendar-alt mr-1"></i> 22 октября 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Related Post 2 -->
+                        <div class="related-post bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-48 bg-gray-400 flex items-center justify-center">
+                                <i class="fas fa-paint-roller text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-sm text-purple-600 font-semibold">Тренды</span>
+                                <h3 class="text-xl font-semibold my-3">Цветовые тренды в дверях на 2024 год</h3>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span><i class="far fa-calendar-alt mr-1"></i> 18 октября 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Related Post 3 -->
+                        <div class="related-post bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="h-48 bg-gray-500 flex items-center justify-center">
+                                <i class="fas fa-soap text-5xl text-gray-500"></i>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-sm text-yellow-600 font-semibold">Уход</span>
+                                <h3 class="text-xl font-semibold my-3">Как очистить дверь от сложных загрязнений</h3>
+                                <div class="flex items-center text-gray-500 text-sm">
+                                    <span><i class="far fa-calendar-alt mr-1"></i> 15 октября 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter Section -->
+            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
+                <div class="container mx-auto max-w-4xl text-center">
+                    <h2 class="text-3xl font-bold mb-6">Подпишитесь на нашу рассылку</h2>
+                    <p class="text-xl mb-8">Получайте полезные статьи о дверях, новинки каталога и специальные предложения</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-2xl mx-auto">
+                        <input type="email" placeholder="Ваш email" class="flex-1 px-6 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <button class="bg-white text-blue-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
+                            Подписаться
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-wrapper" class="bg-gray-800 text-white py-12 px-4 md:px-8"></footer>    
+
+    <!-- Mobile sidebar overlay -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
+    
+    <script src="/scripts.js"></script>
+
+</body>
+</html>
