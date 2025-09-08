@@ -1,5 +1,5 @@
 // Load header, then attach mobile sidebar toggle handler after elements are in the DOM
-fetch('shared/header.html')
+fetch('components/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header-wrapper').innerHTML = html;
@@ -15,7 +15,7 @@ fetch('shared/header.html')
 
 
 // Load footer.html into #footer-wrapper
-fetch('shared/footer.html')
+fetch('components/footer.html')
     .then(res => res.text())
     .then(html => {
         document.getElementById('footer-wrapper').innerHTML = html;
@@ -23,7 +23,7 @@ fetch('shared/footer.html')
     .catch(err => console.error('Error loading header:', err));
 
 // Load desktop sidebar content
-fetch('shared/sidebar.html')
+fetch('components/sidebar.html')
   .then(response => response.text())
   .then(html => {
     document.getElementById('sidebar-wrapper').innerHTML = html;
