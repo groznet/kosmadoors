@@ -95,12 +95,12 @@
                             class="px-6 py-3 rounded-full font-medium transition-colors">
                             Входные двери
                         </button>
-                        <button 
+                        <!-- <button 
                             @click="activeTab = 'interior'" 
                             :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'interior', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'interior' }"
                             class="px-6 py-3 rounded-full font-medium transition-colors">
                             Межкомнатные двери
-                        </button>
+                        </button> -->
                         <button 
                             @click="activeTab = 'arches'" 
                             :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'arches', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'arches' }"
@@ -166,59 +166,6 @@
                                 <div class="p-6">
                                     <h4 class="text-xl font-semibold mb-2">Офисное здание на пр. Путина</h4>
                                     <p class="text-gray-600 mb-4">Установка 12 входных дверей в бизнес-центре</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-blue-800 font-medium">Грозный</span>
-                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div x-show="activeTab === 'all' || activeTab === 'interior'" x-transition class="mb-12">
-                        <h3 class="text-2xl font-semibold mb-6 border-b pb-2" x-show="activeTab === 'interior'">Межкомнатные двери</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <!-- Project 1 -->
-                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
-                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
-                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
-                                </div>
-                                <div class="p-6">
-                                    <h4 class="text-xl font-semibold mb-2">Квартира в центре Грозного</h4>
-                                    <p class="text-gray-600 mb-4">Установка 6 межкомнатных дверей коллекции "Smart X"</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-blue-800 font-medium">Грозный</span>
-                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Project 2 -->
-                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
-                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
-                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
-                                </div>
-                                <div class="p-6">
-                                    <h4 class="text-xl font-semibold mb-2">Коттедж в с. Центорой</h4>
-                                    <p class="text-gray-600 mb-4">Установка 10 межкомнатных дверей с фурнитурой</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-blue-800 font-medium">с. Центорой</span>
-                                        <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Project 3 -->
-                            <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                                <div class="h-56 bg-gray-300 flex items-center justify-center relative">
-                                    <i class="fas fa-door-open text-5xl text-gray-500"></i>
-                                    <span class="absolute top-4 left-4 bg-green-600 text-white text-sm px-3 py-1 rounded">Межкомнатные</span>
-                                </div>
-                                <div class="p-6">
-                                    <h4 class="text-xl font-semibold mb-2">Офис страховой компании</h4>
-                                    <p class="text-gray-600 mb-4">Установка 8 межкомнатных дверей коллекции "ALTO"</p>
                                     <div class="flex justify-between items-center">
                                         <span class="text-blue-800 font-medium">Грозный</span>
                                         <a href="single-project.html" class="text-blue-800 hover:underline">Подробнее →</a>

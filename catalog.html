@@ -94,7 +94,7 @@
             border-radius: 9999px;
             font-size: 0.875rem;
             margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            /* margin-bottom: 0.5rem; */
         }
     </style>
 </head>
@@ -258,10 +258,10 @@
                                                 <input type="checkbox" id="cat-entrance" x-model="activeFilters.categories" value="entrance">
                                                 <label for="cat-entrance">Входные двери</label>
                                             </div>
-                                            <div class="checkbox-item">
+                                            <!-- <div class="checkbox-item">
                                                 <input type="checkbox" id="cat-interior" x-model="activeFilters.categories" value="interior">
                                                 <label for="cat-interior">Межкомнатные двери</label>
-                                            </div>
+                                            </div> -->
                                             <div class="checkbox-item">
                                                 <input type="checkbox" id="cat-arches" x-model="activeFilters.categories" value="arches">
                                                 <label for="cat-arches">Арки</label>
@@ -598,7 +598,7 @@
         function getCategoryName(category) {
             const categories = {
                 'entrance': 'Входные',
-                'interior': 'Межкомнатные',
+                // 'interior': 'Межкомнатные',
                 'arches': 'Арки',
                 'accessories': 'Фурнитура'
             };
