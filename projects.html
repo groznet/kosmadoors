@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши проекты - Гарант | Двери для дома и офиса</title>
+    <title>Наши проекты - KosmaDoors | Двери для дома и офиса</title>
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
@@ -307,8 +307,15 @@
             </section>
 
             <!-- CTA Section -->
-            <section class="py-16 px-4 md:px-8 bg-blue-800 text-white">
-                <div class="container mx-auto max-w-4xl text-center">
+            <section class="relative py-16 px-4 md:px-8 text-white overflow-hidden">
+                <!-- Background image -->
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/images/bg_images/bg_image-1.jpg');"></div>
+                
+                <!-- Blue overlay -->
+                <div class="absolute inset-0 bg-blue-800 opacity-70"></div>
+                
+                <!-- Content -->
+                <div class="relative container mx-auto max-w-4xl text-center">
                     <h2 class="text-3xl font-bold mb-6">Хотите такой же качественный проект?</h2>
                     <p class="text-xl mb-8">Наши специалисты разработают для вас индивидуальное решение и реализуют его с безупречным качеством</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
