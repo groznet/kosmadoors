@@ -1,0 +1,58 @@
+[
+    {
+        "id": "comfort-6-0",
+        "category": "entrance-doors",
+        "title": "Серия Комфорт 6.0",
+        "description": "Надёжные и безопасные входные двери для квартир и домов",
+        "slug": "seriya-komfort-6-0",
+        "price": 25990,
+        "currency": "RUB",
+        "availability": true,
+        "rating": 4.5,
+        "reviews_count": 12,
+        "tags": ["popular", "security", "steel-door"],
+        "attributes": {
+            "type": "entrance",             // entrance, interior, forged, etc.
+            "material": "steel",
+            "frame_material": "steel",
+            "core": "honeycomb",            // or solid wood
+            "color": ["white", "brown"],
+            "finish": "matte",              // glossy, matte, textured
+            "dimensions": {
+                "width_mm": 900,
+                "height_mm": 2100,
+                "thickness_mm": 50
+            },
+            "weight_kg": 45,
+            "fire_rating": null,            // can be null or 30min/60min
+            "sound_insulation_db": 35,
+            "lock_type": "mechanical",
+            "smart_lock": false,
+            "opening": "right",             // left/right
+            "insulation": ["thermal", "sound"]
+        },
+        "images": {
+            "thumbnail": "images/products/comfort-6-0/thumb.jpg",
+            "main": "images/products/comfort-6-0/main.jpg",
+            "gallery": [
+                "images/products/comfort-6-0/1.jpg",
+                "images/products/comfort-6-0/2.jpg",
+                "images/products/comfort-6-0/3.jpg"
+            ],
+            "alt": "Входная дверь Комфорт 6.0"
+        },
+        "variants": [
+            {
+                "id": "comfort-6-0-brown",
+                "color": "brown",
+                "price": 26990,
+                "availability": true,
+                "image": "images/products/comfort-6-0/brown.jpg"
+            }
+        ],
+        "promotion": {
+            "discount": 10,                  // percentage
+            "ends_on": "2025-12-31"
+        }
+    }
+]
