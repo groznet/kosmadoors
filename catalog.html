@@ -100,62 +100,6 @@
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen" x-data="catalog()">
 
-<script>
-function catalog() {
-    return {
-        mobileMenuOpen: false,
-        sidebarOpen: false,
-        filtersOpen: true,
-        sortBy: 'popular',
-        priceRange: 50000,
-        activeFilters: { categories: [], collections: [], colors: [], features: [] },
-        products: [],
-        mobileFiltersOpen: false,
-
-        // Load products from JSON
-        init() {
-            fetch('/data/products.json')
-                .then(res => res.json())
-                .then(data => this.products = data)
-                .catch(err => console.error('Failed to load products.json:', err));
-        },
-
-        toggleFilter(type, value) {
-            if (this.activeFilters[type].includes(value)) {
-                this.activeFilters[type] = this.activeFilters[type].filter(item => item !== value);
-            } else {
-                this.activeFilters[type].push(value);
-            }
-        },
-
-        clearAllFilters() {
-            this.activeFilters = { categories: [], collections: [], colors: [], features: [] };
-            this.priceRange = 50000;
-        },
-
-        get filteredProducts() {
-            return this.products.filter(product => {
-                if (this.activeFilters.categories.length > 0 && !this.activeFilters.categories.includes(product.category)) return false;
-                if (this.activeFilters.collections.length > 0 && !this.activeFilters.collections.includes(product.collection)) return false;
-                if (this.activeFilters.colors.length > 0 && !this.activeFilters.colors.includes(product.color)) return false;
-                if (product.price > this.priceRange) return false;
-                return true;
-            });
-        },
-
-        getCategoryName(category) {
-            // Optional: map category slug to human-readable name
-            const map = {
-                entrance: 'Входные двери',
-                interior: 'Межкомнатные двери',
-                arches: 'Арки',
-                accessories: 'Аксессуары'
-            };
-            return map[category] || category;
-        }
-    }
-}
-</script>
     <!-- Header -->
     <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
 
@@ -240,30 +184,27 @@ function catalog() {
                                     </div>
 
                                     <!-- Category Filter -->
-                                    <div class="filter-group">
-                                        <div class="filter-title" @click="filtersOpen = !filtersOpen">
+                                    <!-- <div class="filter-group">
+                                        <div class="filter-title" @click="categoryOpen = !categoryOpen">
                                             <span>Категория</span>
-                                            <i class="fas fa-chevron-down text-xs"></i>
+                                            <i class="fas fa-chevron-down text-xs" :class="{ 'fa-chevron-up': categoryOpen }"></i>
                                         </div>
-                                        <div class="filter-content" :class="{ 'open': filtersOpen }">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="cat-entrance" x-model="activeFilters.categories" value="entrance">
-                                                <label for="cat-entrance">Входные двери</label>
-                                            </div>
-                                            <!-- <div class="checkbox-item">
-                                                <input type="checkbox" id="cat-interior" x-model="activeFilters.categories" value="interior">
-                                                <label for="cat-interior">Межкомнатные двери</label>
-                                            </div> -->
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="cat-arches" x-model="activeFilters.categories" value="arches">
-                                                <label for="cat-arches">Арки</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="cat-accessories" x-model="activeFilters.categories" value="accessories">
-                                                <label for="cat-accessories">Фурнитура</label>
+                                        <div class="filter-content" :class="{ 'open': categoryOpen }">
+                                            <template x-for="cat in allCategories" :key="cat.id">
+                                                <div class="checkbox-item">
+                                                    <label class="cursor-pointer flex items-center" @click.prevent="switchCategory(cat.id)">
+                                                        <input type="checkbox" 
+                                                            :checked="currentCategoryId === cat.id"
+                                                            class="mr-2">
+                                                        <span x-text="cat.name"></span>
+                                                    </label>
+                                                </div>
+                                            </template>
+                                            <div x-show="allCategories.length === 0" class="text-gray-500 text-sm">
+                                                Загрузка категорий...
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Collection Filter -->
                                     <div class="filter-group">
@@ -272,30 +213,15 @@ function catalog() {
                                             <i class="fas fa-chevron-down text-xs"></i>
                                         </div>
                                         <div class="filter-content" :class="{ 'open': filtersOpen }">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-comfort" x-model="activeFilters.collections" value="comfort">
-                                                <label for="col-comfort">Комфорт</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-etalon" x-model="activeFilters.collections" value="etalon">
-                                                <label for="col-etalon">Эталон</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-mercury" x-model="activeFilters.collections" value="mercury">
-                                                <label for="col-mercury">Меркурий</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-smart" x-model="activeFilters.collections" value="smart">
-                                                <label for="col-smart">Smart</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-pvc" x-model="activeFilters.collections" value="pvc">
-                                                <label for="col-pvc">ПВХ</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="col-portale" x-model="activeFilters.collections" value="portale">
-                                                <label for="col-portale">PORTALe</label>
-                                            </div>
+                                            <template x-for="col in availableCollections" :key="col">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" 
+                                                        :id="`col-${col}`" 
+                                                        x-model="activeFilters.collections" 
+                                                        :value="col">
+                                                    <label :for="`col-${col}`" x-text="col"></label>
+                                                </div>
+                                            </template>
                                         </div>
                                     </div>
 
@@ -306,26 +232,15 @@ function catalog() {
                                             <i class="fas fa-chevron-down text-xs"></i>
                                         </div>
                                         <div class="filter-content" :class="{ 'open': filtersOpen }">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="color-white" x-model="activeFilters.colors" value="Белый">
-                                                <label for="color-white">Белый</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="color-gray" x-model="activeFilters.colors" value="Серый">
-                                                <label for="color-gray">Серый</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="color-brown" x-model="activeFilters.colors" value="Коричневый">
-                                                <label for="color-brown">Коричневый</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="color-oak" x-model="activeFilters.colors" value="Дуб">
-                                                <label for="color-oak">Дуб</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="color-walnut" x-model="activeFilters.colors" value="Орех">
-                                                <label for="color-walnut">Орех</label>
-                                            </div>
+                                            <template x-for="color in availableColors" :key="color">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" 
+                                                        :id="`color-${color}`" 
+                                                        x-model="activeFilters.colors" 
+                                                        :value="color">
+                                                    <label :for="`color-${color}`" x-text="color"></label>
+                                                </div>
+                                            </template>
                                         </div>
                                     </div>
 
@@ -336,20 +251,18 @@ function catalog() {
                                             <i class="fas fa-chevron-down text-xs"></i>
                                         </div>
                                         <div class="filter-content" :class="{ 'open': filtersOpen }">
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="feat-discount" x-model="activeFilters.features" value="discount">
-                                                <label for="feat-discount">Со скидкой</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="feat-new" x-model="activeFilters.features" value="new">
-                                                <label for="feat-new">Новинки</label>
-                                            </div>
-                                            <div class="checkbox-item">
-                                                <input type="checkbox" id="feat-bestseller" x-model="activeFilters.features" value="bestseller">
-                                                <label for="feat-bestseller">Хиты продаж</label>
-                                            </div>
+                                            <template x-for="feature in availableFeatures" :key="feature">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" 
+                                                        :id="`feat-${feature}`" 
+                                                        x-model="activeFilters.features" 
+                                                        :value="feature">
+                                                    <label :for="`feat-${feature}`" x-text="getFeatureName(feature)"></label>
+                                                </div>
+                                            </template>
                                         </div>
                                     </div>
+
 
                                     <button @click="clearAllFilters()" class="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded">
                                         Сбросить все фильтры
@@ -435,16 +348,14 @@ function catalog() {
                             <template x-if="filteredProducts.length > 0">
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <template x-for="product in filteredProducts" :key="product.id">
-                                        <div class="product-card bg-white rounded-lg overflow-hidden shadow-md border border-gray-100">
+                                        <div class="product-card bg-white rounded-lg overflow-hidden border border-gray-100">
+                                            <!-- Product Image -->
                                             <div class="relative">
-                                                <div class="h-56 bg-gray-300 flex items-center justify-center">
-                                                    <i class="fas" :class="{
-                                                        'fa-door-closed': product.image === 'door-closed',
-                                                        'fa-door-open': product.image === 'door-open',
-                                                        'fa-archway': product.image === 'archway',
-                                                        'fa-tools': product.image === 'tools'
-                                                    }" class="text-5xl text-gray-500"></i>
+                                                <div class="relative cursor-pointer" @click="openLightbox(`/assets/images/${product.category}/${product.image}`)">
+                                                    <img :src="`/assets/images/${product.category}/${product.image}`" alt="" class="w-full object-cover">
+                                                    <!-- badges & buttons remain here -->
                                                 </div>
+                                                <!-- Badges -->
                                                 <div class="absolute top-4 left-4">
                                                     <template x-if="product.discount">
                                                         <span class="bg-red-600 text-white text-sm px-2 py-1 rounded">-10%</span>
@@ -457,17 +368,23 @@ function catalog() {
                                                     <i class="far fa-heart"></i>
                                                 </button>
                                             </div>
+
+                                            <!-- Product Info -->
                                             <div class="p-4">
                                                 <span class="text-sm text-gray-500" x-text="getCategoryName(product.category)"></span>
                                                 <h3 class="text-lg font-semibold mb-2" x-text="product.name"></h3>
+
+                                                <!-- Rating -->
                                                 <div class="flex items-center mb-3">
-                                                    <div class="text-yellow-400 mr-1">
-                                                        <template x-for="i in 5">
+                                                    <div class="text-yellow-400 mr-2">
+                                                        <template x-for="i in 5" :key="i">
                                                             <i class="fas fa-star" :class="{ 'text-gray-300': i > Math.round(product.rating) }"></i>
                                                         </template>
                                                     </div>
-                                                    <span class="text-sm text-gray-500 ml-1" x-text="'(' + product.reviews + ')'"></span>
+                                                    <span class="text-sm text-gray-500" x-text="'(' + product.reviews + ')'"></span>
                                                 </div>
+
+                                                <!-- Price & Cart -->
                                                 <div class="flex items-center justify-between">
                                                     <div>
                                                         <span class="text-xl font-bold text-blue-800" x-text="product.price.toLocaleString('ru-RU') + ' ₽'"></span>
@@ -585,46 +502,133 @@ function catalog() {
     <div x-show="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" @click="sidebarOpen = false" x-transition></div>
     <script src="scripts.js"></script>
     <script>
-
-        // Helper functions for Alpine.js
-        function getCategoryName(category) {
-            const categories = {
-                'entrance': 'Входные',
-                // 'interior': 'Межкомнатные',
-                'arches': 'Арки',
-                'accessories': 'Фурнитура'
-            };
-            return categories[category] || category;
+        function catalog() {
+            return {
+                // Essential UI State
+                mobileMenuOpen: false,
+                sidebarOpen: false,
+                filtersOpen: true,
+                categoryOpen: false,
+                loading: false,
+                
+                // Filter State
+                sortBy: 'popular',
+                priceRange: 50000,
+                maxPrice: 100000,
+                activeFilters: { 
+                    collections: [], 
+                    colors: [], 
+                    features: []
+                },
+                
+                // Data
+                allCategories: [],
+                currentCategoryId: 'doors',
+                products: [],
+                
+                // Initialize - Load products
+                async init(categoryId = 'doors') {
+                    this.loading = true;
+                    try {
+                        const response = await fetch('/data/products.json');
+                        const data = await response.json();
+                        this.allCategories = data.categories;
+                        
+                        this.currentCategoryId = categoryId;
+                        const category = this.allCategories.find(cat => cat.id === categoryId);
+                        this.products = category ? category.products : [];
+                        
+                        if (this.products.length > 0) {
+                            this.maxPrice = Math.max(...this.products.map(p => p.price));
+                            this.priceRange = this.maxPrice; // <-- set slider to max of this category
+                        }
+                    } catch (error) {
+                        console.error('Error loading products:', error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                
+                // Switch category
+                switchCategory(categoryId) {
+                    this.init(categoryId);
+                    this.clearAllFilters();
+                },
+                
+                // Filter management
+                toggleFilter(type, value) {
+                    const index = this.activeFilters[type].indexOf(value);
+                    if (index > -1) {
+                        this.activeFilters[type].splice(index, 1);
+                    } else {
+                        this.activeFilters[type].push(value);
+                    }
+                },
+                
+                clearAllFilters() {
+                    this.activeFilters = { collections: [], colors: [], features: [] };
+                    this.priceRange = Math.min(50000, this.maxPrice);
+                },
+                
+                // Filtered products
+                get filteredProducts() {
+                    if (!this.products) return [];
+                    
+                    let result = this.products.filter(product => {
+                        if (product.price > this.priceRange) return false;
+                        if (this.activeFilters.collections.length > 0 && 
+                            !this.activeFilters.collections.includes(product.collection)) return false;
+                        if (this.activeFilters.colors.length > 0 && 
+                            !this.activeFilters.colors.includes(product.attributes?.color)) return false;
+                        if (this.activeFilters.features.length > 0) {
+                            let hasFeature = false;
+                            if (this.activeFilters.features.includes('discount') && 
+                                (product.discount || product.oldPrice)) hasFeature = true;
+                            if (this.activeFilters.features.includes('bestseller') && 
+                                product.featured) hasFeature = true;
+                            if (!hasFeature) return false;
+                        }
+                        return true;
+                    });
+                    
+                    // Sort results
+                    switch(this.sortBy) {
+                        case 'price-asc': return result.sort((a,b) => a.price - b.price);
+                        case 'price-desc': return result.sort((a,b) => b.price - a.price);
+                        case 'rating': return result.sort((a,b) => (b.rating || 0) - (a.rating || 0));
+                        default: return result.sort((a,b) => (b.score || 0) - (a.score || 0));
+                    }
+                },
+                
+                // Available filter options
+                get availableCollections() {
+                    return [...new Set(this.products.map(p => p.collection).filter(Boolean))];
+                },
+                
+                get availableColors() {
+                    return [...new Set(this.products.map(p => p.attributes?.color).filter(Boolean))];
+                },
+                
+                get availableFeatures() {
+                    const features = [];
+                    if (this.products.some(p => p.discount || p.oldPrice)) features.push('discount');
+                    if (this.products.some(p => p.featured)) features.push('bestseller');
+                    return features;
+                },
+                
+                // Helper functions
+                getCategoryName(categoryId) {
+                    const cat = this.allCategories.find(c => c.id === categoryId);
+                    return cat ? cat.name : categoryId;
+                },
+                
+                getFeatureName(feature) {
+                    return feature === 'discount' ? 'Со скидкой' : 
+                        feature === 'bestseller' ? 'Хиты продаж' : feature;
+                }
+            }
         }
-
-        function getCollectionName(collection) {
-            const collections = {
-                'comfort': 'Комфорт',
-                'etalon': 'Эталон',
-                'mercury': 'Меркурий',
-                'smart': 'Smart',
-                'pvc': 'ПВХ',
-                'portale': 'PORTALe',
-                'premium': 'Премиум'
-            };
-            return collections[collection] || collection;
-        }
-
-        function getFeatureName(feature) {
-            const features = {
-                'discount': 'Со скидкой',
-                'new': 'Новинки',
-                'bestseller': 'Хиты продаж'
-            };
-            return features[feature] || feature;
-        }
-
-        // Add these functions to the Alpine.js scope
-        document.addEventListener('alpine:init', () => {
-            Alpine.magic('getCategoryName', () => getCategoryName);
-            Alpine.magic('getCollectionName', () => getCollectionName);
-            Alpine.magic('getFeatureName', () => getFeatureName);
-        });
     </script>
 </body>
 </html>
+

@@ -7,26 +7,7 @@
 <div class="overflow-y-auto h-full pb-20">
     <ul class="py-2">
         <!-- Входные двери -->
-        <li x-data="{ open: false }" class="mb-1">
-            <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
-                <span><i class="fa-solid fa-door-closed"></i> Входные двери</span>
-                <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
-            </button>
-            <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li x-data="{ open: false }" class="mb-1">
-                    <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
-                        <span>Квартирные двери</span>
-                        <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
-                    </button>
-                    <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Серия Комфорт 6.0</a></li>
-                        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Серия Эталон</a></li>
-                        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">С умным(электронным) замком</a></li>
-                        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Серия Меркурий (эконом)</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
+        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('doors')"><i class="fa-solid fa-door-closed"></i> Входные двери</a></li>
         
         <!-- Additional main categories would follow the same pattern -->
         <li x-data="{ open: false }" class="mb-1">
@@ -35,8 +16,9 @@
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Интерьерные рейки</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">МДФ Плинтуса</a></li>
+                <!-- <li><a href="# " class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('interior-rails')">Интерьерные рейки</a></li> -->
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('mdf-baseboards')">МДФ Плинтуса</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('baseboards')">Плинтуса</a></li>
             </ul>
         </li>
         <li x-data="{ open: false }" class="mb-1">
@@ -45,14 +27,10 @@
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Ламинат</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Линолеум</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Плинтуса</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Дополнительные товары</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('laminate')">Ламинат</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('linoleum')">Линолеум</a></li>
             </ul>
         </li>
-        
-        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100"><i class="fa-solid fa-cube"></i> Конструктор кухни 3D</a></li>
         
         <li x-data="{ open: false }" class="mb-1">
             <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
@@ -60,13 +38,26 @@
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Ворота</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Перила</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Навесы</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Ограждения</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Заборы/Ограды</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Козырьки</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Решётки</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('gates')">Ворота</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('railings')">Перила</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('gates')">Навесы</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('canopies')">Ограждения</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('fences-and-gates')">Заборы/Ограды</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('awnings')">Козырьки</a></li>
+                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('grilles')">Решётки</a></li>
+            </ul>
+        </li>
+        
+        <li x-data="{ open: false }" class="mb-1">
+            <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
+                <span><i class="fa-solid fa-toolbox"></i> Дополнительные</span>
+                <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
+            </button>
+            <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
+                <li>
+                    <a href="#" class="block py-2 px-4 rounded hover:bg-gray-100">Конструктор кухни 3D</a>
+                </li>
+                <!-- Add more subcategories here if needed -->
             </ul>
         </li>
         
@@ -78,3 +69,24 @@
         info@kosmadoors.ru</a></li>
     </ul>
 </div>
+
+<!-- Categories list
+{
+    "Входные двери": "doors",
+    "Интерьерные рейки": "interior-rails",
+    "МДФ Плинтуса": "mdf-plinths",
+    "Напольные покрытия": "floor-coverings",
+    "Ламинат": "laminate",
+    "Линолеум": "linoleum",
+    "Плинтуса": "plinths",
+    "Дополнительные товары": "additional-products",
+    "Конструктор кухни 3D": "kitchen-3d-designer",
+    "Кованые изделия": "wrought-iron-products",
+    "Ворота": "gates",
+    "Перила": "railings",
+    "Навесы": "canopies",
+    "Ограждения": "fences",
+    "Заборы/Ограды": "fences-and-gates",
+    "Козырьки": "door-canopies",
+    "Решётки": "grilles" -->
+}

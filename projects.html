@@ -89,35 +89,40 @@
                             class="px-6 py-3 rounded-full font-medium transition-colors">
                             Все проекты
                         </button>
+
                         <button 
-                            @click="activeTab = 'entrance'" 
-                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'entrance', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'entrance' }"
+                            @click="activeTab = 'entrance_doors'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'entrance_doors', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'entrance_doors' }"
                             class="px-6 py-3 rounded-full font-medium transition-colors">
                             Входные двери
                         </button>
-                        <!-- <button 
+
+                        <button 
                             @click="activeTab = 'interior'" 
                             :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'interior', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'interior' }"
                             class="px-6 py-3 rounded-full font-medium transition-colors">
-                            Межкомнатные двери
-                        </button> -->
-                        <button 
-                            @click="activeTab = 'arches'" 
-                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'arches', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'arches' }"
-                            class="px-6 py-3 rounded-full font-medium transition-colors">
-                            Арки
+                            Интерьер
                         </button>
+
                         <button 
                             @click="activeTab = 'floors'" 
                             :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'floors', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'floors' }"
                             class="px-6 py-3 rounded-full font-medium transition-colors">
                             Напольные покрытия
                         </button>
+
                         <button 
-                            @click="activeTab = 'commercial'" 
-                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'commercial', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'commercial' }"
+                            @click="activeTab = 'additional'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'additional', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'additional' }"
                             class="px-6 py-3 rounded-full font-medium transition-colors">
-                            Коммерческие объекты
+                            Дополнительные товары
+                        </button>
+
+                        <button 
+                            @click="activeTab = 'wrought_iron'" 
+                            :class="{ 'tab-active bg-blue-800 text-white': activeTab === 'wrought_iron', 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeTab !== 'wrought_iron' }"
+                            class="px-6 py-3 rounded-full font-medium transition-colors">
+                            Кованые изделия
                         </button>
                     </div>
                     

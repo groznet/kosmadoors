@@ -29,3 +29,5 @@ fetch('components/sidebar.html')
     document.getElementById('sidebar-wrapper').innerHTML = html;
   })
   .catch(err => console.error('Failed to load desktop sidebar:', err));
+
+  

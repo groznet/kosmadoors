@@ -1,0 +1,24 @@
+[
+  {
+    "id": 101,
+    "sku": "DOOR-STEEL-01",
+    "name": "Входная дверь Steel 01",
+    "category": "doors",
+    "collection": "Steel",
+    "price": 15200,
+    "oldPrice": 16900,
+    "rating": 4.8,
+    "reviews": 45,
+    "image": "DOOR-STEEL-01.jpg",
+    "gallery": ["DOOR-STEEL-01-1.jpg", "DOOR-STEEL-01-2.jpg"],
+    "featured": true,
+    "discount": true,
+    "score": 205.5,
+    "attributes": {
+      "material": "Сталь",
+      "color": "Белый",
+      "dimensions": "2050x900x50 мм",
+      "weight": "45 кг"
+    }
+  }
+]
