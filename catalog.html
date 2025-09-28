@@ -99,6 +99,16 @@
     </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen" x-data="catalog()">
+    <!-- Lightbox overlay -->
+    <div 
+        x-show="lightboxOpen" 
+        x-transition.opacity
+        class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+        @click="lightboxOpen = false"
+        style="display: none;"
+    >
+        <img :src="lightboxImage" class="max-h-[90%] max-w-[90%] rounded-lg shadow-lg">
+    </div>    
 
     <!-- Header -->
     <header id="header-wrapper" class="bg-white shadow-md sticky top-0 z-50"></header>
@@ -131,10 +141,17 @@
                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
                 <div class="container mx-auto relative z-10 text-center">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Каталог дверей</h1>
-                    <p class="text-xl max-w-3xl mx-auto">
-                        Широкий выбор качественных дверей для вашего дома, офиса и коммерческих помещений
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4" x-text="currentCategoryId 
+                        ? getCategoryName(currentCategoryId) 
+                        : 'Каталог товаров'">
+                    </h1>
+
+                    <p class="text-xl max-w-3xl mx-auto" 
+                    x-text="currentCategoryId 
+                            ? 'Большой выбор ' + getCategoryName(currentCategoryId).toLowerCase() + ' для дома, офиса и коммерческих помещений' 
+                            : 'Большой выбор товаров для дома, офиса и коммерческих помещений'">
                     </p>
+
                 </div>
             </section>
 
@@ -511,6 +528,16 @@
                 categoryOpen: false,
                 loading: false,
                 
+                lightboxOpen: false,
+                lightboxImage: null,
+
+                // method to open lightbox
+                openLightbox(src) {
+                    this.lightboxImage = src;
+                    this.lightboxOpen = true;
+                },
+
+
                 // Filter State
                 sortBy: 'popular',
                 priceRange: 50000,
@@ -527,21 +554,42 @@
                 products: [],
                 
                 // Initialize - Load products
-                async init(categoryId = 'doors') {
+                async init(categoryId = null) {
                     this.loading = true;
                     try {
                         const response = await fetch('/data/products.json');
                         const data = await response.json();
                         this.allCategories = data.categories;
-                        
-                        this.currentCategoryId = categoryId;
-                        const category = this.allCategories.find(cat => cat.id === categoryId);
-                        this.products = category ? category.products : [];
-                        
-                        if (this.products.length > 0) {
-                            this.maxPrice = Math.max(...this.products.map(p => p.price));
-                            this.priceRange = this.maxPrice; // <-- set slider to max of this category
+
+                        // Read category from URL if not explicitly passed
+                        const params = new URLSearchParams(window.location.search);
+                        const urlCategory = params.get('category');
+
+                        if (categoryId) {
+                            this.currentCategoryId = categoryId;
+                        } else if (urlCategory) {
+                            this.currentCategoryId = urlCategory;
+                        } else {
+                            this.currentCategoryId = null; // null = show all products
                         }
+
+                        if (this.currentCategoryId) {
+                            const category = this.allCategories.find(cat => cat.id === this.currentCategoryId);
+                            this.products = category ? category.products : [];
+                        } else {
+                            // Show all products from all categories
+                            this.products = this.allCategories.flatMap(cat => cat.products);
+                        }
+
+if (this.products.length > 0) {
+    this.maxPrice = Math.max(...this.products.map(p => p.price));
+    // Set the slider to maxPrice to show all products initially
+    this.priceRange = this.maxPrice;
+} else {
+    this.priceRange = 0; // fallback
+}
+
+
                     } catch (error) {
                         console.error('Error loading products:', error);
                     } finally {

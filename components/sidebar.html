@@ -7,7 +7,12 @@
 <div class="overflow-y-auto h-full pb-20">
     <ul class="py-2">
         <!-- Входные двери -->
-        <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('doors')"><i class="fa-solid fa-door-closed"></i> Входные двери</a></li>
+        <li>
+            <a href="catalog.html?category=doors" class="block py-2 px-4 rounded hover:bg-gray-100"
+                @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('doors') }">
+                <i class="fa-solid fa-door-closed"></i> Входные двери
+            </a>            
+        </li>
         
         <!-- Additional main categories would follow the same pattern -->
         <li x-data="{ open: false }" class="mb-1">
@@ -17,8 +22,18 @@
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
                 <!-- <li><a href="# " class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('interior-rails')">Интерьерные рейки</a></li> -->
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('mdf-baseboards')">МДФ Плинтуса</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('baseboards')">Плинтуса</a></li>
+                <li>
+                    <a href="catalog.html?category=mdf-baseboards" class="block py-2 px-4 rounded hover:bg-gray-100" 
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('mdf-baseboards') }">
+                    МДФ Плинтуса
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=baseboards" class="block py-2 px-4 rounded hover:bg-gray-100" 
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('baseboards') }">
+                    Плинтуса
+                    </a>
+                </li>
             </ul>
         </li>
         <li x-data="{ open: false }" class="mb-1">
@@ -27,8 +42,18 @@
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('laminate')">Ламинат</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('linoleum')">Линолеум</a></li>
+                <li>
+                    <a href="catalog.html?category=laminate" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('laminate') }">
+                    Ламинат
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=linoleum" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('linoleum') }">
+                    Линолеум
+                    </a>
+                </li>
             </ul>
         </li>
         
@@ -38,13 +63,48 @@
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
             </button>
             <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('gates')">Ворота</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('railings')">Перила</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('gates')">Навесы</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('canopies')">Ограждения</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('fences-and-gates')">Заборы/Ограды</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('awnings')">Козырьки</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('grilles')">Решётки</a></li>
+                <li>
+                    <a href="catalog.html?category=gates" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('gates') }">
+                    Ворота
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=railings" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('railings') }">
+                    Перила
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=gates" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('gates') }">
+                    Навесы
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=canopies" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('canopies') }">
+                    Ограждения
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=fences-and-gates" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('fences-and-gates') }">
+                    Заборы/Ограды
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=awnings" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('awnings') }">
+                    Козырьки
+                    </a>
+                </li>
+                <li>
+                    <a href="catalog.html?category=grilles" class="block py-2 px-4 rounded hover:bg-gray-100"
+                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('grilles') }">
+                    Решётки
+                    </a>
+                </li>
             </ul>
         </li>
         
