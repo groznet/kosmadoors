@@ -364,7 +364,7 @@
                             <!-- Products Grid -->
                             <template x-if="filteredProducts.length > 0">
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <template x-for="product in filteredProducts" :key="product.id">
+                                    <template x-for="product in filteredProducts" :key="product.uniqueId || product.id">
                                         <div class="product-card bg-white rounded-lg overflow-hidden border border-gray-100">
                                             <!-- Product Image -->
                                             <div class="relative">
@@ -550,7 +550,7 @@
                 
                 // Data
                 allCategories: [],
-                currentCategoryId: 'doors',
+                currentCategoryId: null, // null = show all products by default
                 products: [],
                 
                 // Initialize - Load products
@@ -581,14 +581,13 @@
                             this.products = this.allCategories.flatMap(cat => cat.products);
                         }
 
-if (this.products.length > 0) {
-    this.maxPrice = Math.max(...this.products.map(p => p.price));
-    // Set the slider to maxPrice to show all products initially
-    this.priceRange = this.maxPrice;
-} else {
-    this.priceRange = 0; // fallback
-}
-
+                        if (this.products.length > 0) {
+                            this.maxPrice = Math.max(...this.products.map(p => p.price));
+                            // Set the slider to maxPrice to show all products initially
+                            this.priceRange = this.maxPrice;
+                        } else {
+                            this.priceRange = 0; // fallback
+                        }
 
                     } catch (error) {
                         console.error('Error loading products:', error);

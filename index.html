@@ -85,7 +85,7 @@
                                 <img src="/assets/images/doors/DOOR-STEEL-01.jpg" alt="Входные двери" class="h-full w-full object-cover">
                             </div>
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2">Входные двери</h3>
+                                <h3 class="text-xl font-semibold mb-2"><a href="catalog.html?category=doors">Входные двери</a></h3>
                                 <p class="text-gray-600 mb-4">Надёжные и безопасные входные двери для квартир и домов</p>
                                 <a href="catalog.html?category=doors" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
                             </div>
@@ -94,10 +94,10 @@
                         <!-- Category 2 -->
                         <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                             <div class="h-48 bg-gray-300 flex items-center justify-center">
-                                 <img src="/assets/images/laminate/SLAT-MDF-01.jpg" alt="Ламинат" class="h-full w-full object-cover">
+                                 <img src="/assets/images/laminate/LAM-AC3-01.jpg" alt="Ламинат" class="h-full w-full object-cover">
                             </div>
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2">Интерьерные решения</h3>
+                                <h3 class="text-xl font-semibold mb-2"><a href="catalog.html?category=laminate">Интерьерные решения</a></h3>
                                 <p class="text-gray-600 mb-4">Стильные рейки, плинтуса и МДФ-элементы для уюта вашего интерьера</p>
                                 <a href="catalog.html?category=laminate" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
                             </div>
@@ -109,7 +109,7 @@
                                  <img src="/assets/images/gates/GATE-GARAGE-01.jpg" alt="Ворота" class="h-full w-full object-cover">
                             </div>
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2">Кованые изделия</h3>
+                                <h3 class="text-xl font-semibold mb-2"><a href="catalog.html?category=gate">Кованые изделия</a></h3>
                                 <p class="text-gray-600 mb-4">Ворота, перила, навесы и другие прочные и стильные кованые конструкции</p>
                                 <a href="catalog.html?category=gate" class="text-blue-800 font-semibold hover:underline">Смотреть коллекцию →</a>
                             </div>
@@ -120,23 +120,33 @@
             </section>
 
             <!-- Featured Products -->
-            <section class="py-12 px-4 md:px-8 bg-gray-50" x-data="productsSection()" x-init="loadProducts()">
+            <section 
+                class="py-12 px-4 md:px-8 bg-gray-50"
+                x-data="productsSection()" 
+                x-init="loadProducts()"
+            >
                 <div class="container mx-auto">
                     <h2 class="text-3xl font-bold text-center mb-12">Популярные товары</h2>
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        
+
                         <!-- Product Template -->
-                        <template x-for="product in products.slice(0,6)" :key="product.id">
+                        <template x-for="product in products" :key="product.id">
                             <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
                                 <div class="h-48 bg-gray-300 flex items-center justify-center">
-                                    <img :src="product.images.thumbnail" :alt="product.title" class="object-contain h-full w-full">
+                                    <img 
+                                        :src="'assets/images/' + product.category + '/' + product.image" 
+                                        :alt="product.name" 
+                                        class="object-contain h-full w-full cursor-pointer"
+                                        @click="openLightbox('assets/images/' + product.category + '/' + product.image)"
+                                    />
                                 </div>
                                 <div class="p-4">
-                                    <span class="text-sm text-blue-800 font-semibold" x-text="product.category_name"></span>
-                                    <h3 class="text-lg font-semibold my-2" x-text="product.title"></h3>
+                                    <span class="text-sm font-semibold" x-text="product.category_name"></span>
+                                    <h3 class="text-lg font-semibold my-2" x-text="product.name"></h3>
                                     <div class="flex justify-between items-center">
-                                        <span class="text-xl font-bold" x-text="product.price + ' ' + product.currency"></span>
-                                        <button class="text-blue-800 px-3 py-1 rounded hover:bg-blue-700">
+                                        <span class="text-xl font-bold" x-text="product.price + ' ₽'"></span>
+                                        <button class="px-3 py-1 rounded hover:bg-blue-100">
                                             <i class="fas fa-shopping-cart"></i>
                                         </button>
                                     </div>
@@ -145,8 +155,64 @@
                         </template>
 
                     </div>
+
+                    <!-- Link to Catalog -->
+                    <div class="mt-8 text-center">
+                        <a href="catalog.html" class="inline-block px-6 py-2 rounded bg-blue-800 text-white hover:bg-blue-700 transition">
+                            Смотреть все товары
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Lightbox -->
+                <div 
+                    class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50" 
+                    x-show="lightboxOpen" 
+                    x-transition
+                    @click="lightboxOpen=false"
+                >
+                    <img :src="lightboxImage" alt="Preview" class="max-h-[90%] max-w-[90%] rounded shadow-lg">
                 </div>
             </section>
+
+            <script>
+            function productsSection() {
+                return {
+                    products: [],
+                    lightboxOpen: false,
+                    lightboxImage: '',
+
+                    async loadProducts() {
+                        try {
+                            let res = await fetch('data/products.json');
+                            let data = await res.json();
+
+                            let selected = [];
+
+                            // take one product per category until we have 8
+                            for (let cat of data.categories) {
+                                if (cat.products && cat.products.length > 0) {
+                                    let prod = cat.products[Math.floor(Math.random() * cat.products.length)];
+                                    prod.category = cat.id; // important for image path
+                                    prod.category_name = cat.name;
+                                    selected.push(prod);
+                                }
+                                if (selected.length >= 8) break;
+                            }
+
+                            this.products = selected;
+                        } catch (err) {
+                            console.error('Ошибка загрузки товаров:', err);
+                        }
+                    },
+
+                    openLightbox(img) {
+                        this.lightboxImage = img;
+                        this.lightboxOpen = true;
+                    }
+                }
+            }
+            </script>
 
             <!-- Advantages -->
             <section class="py-12 px-4 md:px-8 bg-white">

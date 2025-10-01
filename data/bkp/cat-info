@@ -1,9 +1,8 @@
 {
     "Входные двери": "doors",
-    "Интерьерные рейки": "interior-rails",
-    "Плинтуса": "rails",
-    "МДФ Плинтуса": "mdf-plinths",
-    "Напольные покрытия": "floor-coverings",
+    "Интерьерные рейки": "interior-slats",
+    "Плинтуса": "baseboards",
+    "МДФ Плинтуса": "mdf-baseboards",
     "Ламинат": "laminate",
     "Линолеум": "linoleum",
     "Дополнительные товары": "additional-products",
@@ -14,6 +13,6 @@
     "Навесы": "canopies",
     "Ограждения": "fences",
     "Заборы/Ограды": "fences-and-gates",
-    "Козырьки": "door-canopies",
+    "Козырьки": "awnings",
     "Решётки": "grilles"
 }
