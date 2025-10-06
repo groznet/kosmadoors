@@ -14,50 +14,7 @@
             </a>            
         </li>
         
-        <!-- Additional main categories would follow the same pattern -->
-        <li x-data="{ open: false }" class="mb-1">
-            <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
-                <span><i class="fa-solid fa-house"></i> Интерьерные решения</span>
-                <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
-            </button>
-            <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <!-- <li><a href="# " class="block py-2 px-4 rounded hover:bg-gray-100" @click.prevent="switchCategory('interior-rails')">Интерьерные рейки</a></li> -->
-                <li>
-                    <a href="catalog.html?category=mdf-baseboards" class="block py-2 px-4 rounded hover:bg-gray-100" 
-                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('mdf-baseboards') }">
-                    МДФ Плинтуса
-                    </a>
-                </li>
-                <li>
-                    <a href="catalog.html?category=baseboards" class="block py-2 px-4 rounded hover:bg-gray-100" 
-                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('baseboards') }">
-                    Плинтуса
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li x-data="{ open: false }" class="mb-1">
-            <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
-                <span><i class="fa-solid fa-layer-group"></i> Напольные покрытия</span>
-                <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
-            </button>
-            <ul x-show="open" class="submenu pl-2 mt-1 space-y-1">
-                <li>
-                    <a href="catalog.html?category=laminate" class="block py-2 px-4 rounded hover:bg-gray-100"
-                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('laminate') }">
-                    Ламинат
-                    </a>
-                </li>
-                <li>
-                    <a href="catalog.html?category=linoleum" class="block py-2 px-4 rounded hover:bg-gray-100"
-                    @click="if(window.location.pathname.endsWith('catalog.html')) { $event.preventDefault(); switchCategory('linoleum') }">
-                    Линолеум
-                    </a>
-                </li>
-            </ul>
-        </li>
-        
-        <li x-data="{ open: false }" class="mb-1">
+        <li x-data="{ open: true }" class="mb-1">
             <button @click="open = !open" class="w-full text-left py-2 px-4 rounded flex justify-between items-center hover:bg-gray-100">
                 <span><i class="fa-solid fa-hammer"></i> Кованые изделия</span>
                 <i class="fas fa-chevron-down text-xs transition-transform" :class="{ 'rotate-180': open }"></i>
